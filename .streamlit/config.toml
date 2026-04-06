@@ -1,0 +1,10 @@
+[server]
+# Remplacez par votre IP locale ou laissez vide pour écouter sur tout le LAN
+address = "0.0.0.0" 
+# Désactive l'affichage de l'URL externe dans le terminal
+#showWarningOnDirectExecution = false
+[logger]
+# Niveaux possibles : error, warning, info, debug
+level = "info" 
+# Pour voir les logs dans le terminal même en mode "headless"
+messageFormat = "%(asctime)s %(message)s"
