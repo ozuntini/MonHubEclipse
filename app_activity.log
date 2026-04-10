@@ -1,6 +1,362 @@
-2026-04-06 19:49:53 - INFO - SUCCÈS: Fichier chargé : Burgos-12_08_2026.txt depuis /home/ozuntini/Documents/Eclipses/archives_Scripts
-2026-04-06 19:55:33 - INFO - SUCCÈS: Fichier chargé : Burgos-12_08_2026.txt depuis /home/ozuntini/Documents/Eclipses/archives_Scripts
-2026-04-06 19:56:05 - INFO - SUCCÈS: Fichier chargé : Burgos-12_08_2026.txt depuis /home/ozuntini/Documents/Eclipses/archives_Scripts
-2026-04-06 19:56:41 - INFO - SUCCÈS: Fichier chargé : Burgos-12_08_2026.txt depuis /home/ozuntini/Documents/Eclipses/archives_Scripts
-2026-04-06 19:56:56 - INFO - SUCCÈS: Copie de sécurité créée : Burgos-12_08_2026_backup_20260406_195656.txt
-2026-04-06 19:56:56 - INFO - SUCCÈS: Fichier créé : Burgos-12_08_2026.txt dans /home/ozuntini/Documents/Eclipses/archives_Scripts
+2026-04-10 00:32:18 - INFO - SUCCÈS: Header par défaut chargé depuis ./ScriptHeader.txt
+2026-04-10 00:32:19 - INFO - SUCCÈS: Header par défaut chargé depuis ./ScriptHeader.txt
+2026-04-10 00:32:27 - INFO - SUCCÈS: Header par défaut chargé depuis ./ScriptHeader.txt
+2026-04-10 00:32:27 - INFO - ACTION: Formulaire réinitialisé par l'utilisateur.
+2026-04-10 00:32:27 - INFO - SUCCÈS: Header par défaut chargé depuis ./ScriptHeader.txt
+2026-04-10 00:33:11 - INFO - SUCCÈS: Header par défaut chargé depuis ./ScriptHeader.txt
+2026-04-10 00:33:13 - INFO - SUCCÈS: Header par défaut chargé depuis ./ScriptHeader.txt
+2026-04-10 00:33:14 - INFO - SUCCÈS: Header par défaut chargé depuis ./ScriptHeader.txt
+2026-04-10 00:33:15 - INFO - SUCCÈS: Header par défaut chargé depuis ./ScriptHeader.txt
+2026-04-10 00:33:19 - INFO - SUCCÈS: Header par défaut chargé depuis ./ScriptHeader.txt
+2026-04-10 00:33:19 - INFO - SUCCÈS: Fichier créé : Niort-10_04_2026.txt dans /home/ozuntini/Project/MonHubEclipse
+2026-04-10 00:33:19 - INFO - SUCCÈS: Fichier créé : Niort-10_04_2026.txt dans /home/ozuntini/Project/MonHubEclipse
+2026-04-10 00:35:04 - INFO - SUCCÈS: Header par défaut chargé depuis ./ScriptHeader.txt
+2026-04-10 00:35:08 - INFO - SUCCÈS: Header par défaut chargé depuis ./ScriptHeader.txt
+2026-04-10 00:35:23 - INFO - SUCCÈS: Header par défaut chargé depuis ./ScriptHeader.txt
+2026-04-10 00:35:37 - INFO - SUCCÈS: Header par défaut chargé depuis ./ScriptHeader.txt
+2026-04-10 00:35:56 - INFO - SUCCÈS: Header par défaut chargé depuis ./ScriptHeader.txt
+2026-04-10 00:35:58 - INFO - SUCCÈS: Header par défaut chargé depuis ./ScriptHeader.txt
+2026-04-10 00:36:00 - INFO - SUCCÈS: Header par défaut chargé depuis ./ScriptHeader.txt
+2026-04-10 00:36:00 - INFO - SUCCÈS: Header par défaut chargé depuis ./ScriptHeader.txt
+2026-04-10 00:36:02 - INFO - SUCCÈS: Header par défaut chargé depuis ./ScriptHeader.txt
+2026-04-10 00:36:02 - INFO - SUCCÈS: Header par défaut chargé depuis ./ScriptHeader.txt
+2026-04-10 00:36:05 - INFO - SUCCÈS: Header par défaut chargé depuis ./ScriptHeader.txt
+2026-04-10 00:36:05 - INFO - SUCCÈS: Header par défaut chargé depuis ./ScriptHeader.txt
+2026-04-10 00:36:07 - INFO - SUCCÈS: Header par défaut chargé depuis ./ScriptHeader.txt
+2026-04-10 00:36:07 - INFO - SUCCÈS: Header par défaut chargé depuis ./ScriptHeader.txt
+2026-04-10 00:36:09 - INFO - SUCCÈS: Header par défaut chargé depuis ./ScriptHeader.txt
+2026-04-10 00:36:13 - INFO - SUCCÈS: Header par défaut chargé depuis ./ScriptHeader.txt
+2026-04-10 00:36:13 - INFO - SUCCÈS: Fichier créé : Test-10_04_2026.txt dans scripts
+2026-04-10 00:36:13 - INFO - SUCCÈS: Fichier créé : Test-10_04_2026.txt dans scripts
+2026-04-10 23:22:36 - INFO - 01_Horaires.py - SUCCÈS: Header par défaut chargé depuis ./ScriptHeader.txt
+2026-04-10 23:22:42 - INFO - 01_Horaires.py - SUCCÈS: Header par défaut chargé depuis ./ScriptHeader.txt
+2026-04-10 23:22:46 - INFO - 01_Horaires.py - SUCCÈS: Header par défaut chargé depuis ./ScriptHeader.txt
+2026-04-10 23:22:46 - INFO - 01_Horaires.py - ACTION: Formulaire réinitialisé par l'utilisateur.
+2026-04-10 23:22:46 - INFO - 01_Horaires.py - SUCCÈS: Header par défaut chargé depuis ./ScriptHeader.txt
+2026-04-10 23:22:58 - INFO - 01_Horaires.py - SUCCÈS: Header par défaut chargé depuis ./ScriptHeader.txt
+2026-04-10 23:26:11 - INFO - 01_Horaires.py - SUCCÈS: Header par défaut chargé depuis ./ScriptHeader.txt
+2026-04-10 23:26:17 - INFO - 01_Horaires.py - SUCCÈS: Header par défaut chargé depuis ./ScriptHeader.txt
+2026-04-10 23:26:46 - INFO - 01_Horaires.py - SUCCÈS: Header par défaut chargé depuis ./ScriptHeader.txt
+2026-04-10 23:26:46 - INFO - 01_Horaires.py - ACTION: Formulaire réinitialisé par l'utilisateur.
+2026-04-10 23:26:46 - INFO - 01_Horaires.py - SUCCÈS: Header par défaut chargé depuis ./ScriptHeader.txt
+2026-04-10 23:27:12 - INFO - 01_Horaires.py - SUCCÈS: Header par défaut chargé depuis ./ScriptHeader.txt
+2026-04-10 23:27:41 - INFO - 01_Horaires.py:38 - SUCCÈS: Header par défaut chargé depuis ./ScriptHeader.txt
+2026-04-10 23:57:05 - INFO - 01_Horaires.py:44 - SUCCÈS: Header par défaut chargé depuis ./ScriptHeader.txt
+2026-04-11 00:14:55 - INFO - filter_controller.py:75 - Configuration du port /dev/gflatpanel terminée
+2026-04-11 00:14:55 - INFO - filter_controller.py:90 - Connecté au port /dev/gflatpanel
+2026-04-11 00:14:55 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99002#
+2026-04-11 00:14:55 - INFO - 02_SetFilter.py:63 - Health check passed: Le panneau est en bonne santé.
+2026-04-11 00:14:55 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99002#
+2026-04-11 00:14:55 - INFO - filter_controller.py:224 - Device id: 99, Motor: 0, Light: 0, Cover: 2
+2026-04-11 00:14:55 - INFO - 02_SetFilter.py:66 - Device status retrieved: {'device_id': '99', 'motor_status': '0', 'light_status': '0', 'cover_status': '2'}
+2026-04-11 00:14:55 - INFO - filter_controller.py:100 - Déconnecté
+2026-04-11 00:14:55 - INFO - 02_SetFilter.py:89 - Déconnexion du panneau effectuée.
+2026-04-11 00:15:46 - INFO - filter_controller.py:75 - Configuration du port /dev/gflatpanel terminée
+2026-04-11 00:15:46 - INFO - filter_controller.py:90 - Connecté au port /dev/gflatpanel
+2026-04-11 00:15:46 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99002#
+2026-04-11 00:15:46 - INFO - 02_SetFilter.py:63 - Health check passed: Le panneau est en bonne santé.
+2026-04-11 00:15:46 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99002#
+2026-04-11 00:15:46 - INFO - filter_controller.py:224 - Device id: 99, Motor: 0, Light: 0, Cover: 2
+2026-04-11 00:15:46 - INFO - 02_SetFilter.py:66 - Device status retrieved: {'device_id': '99', 'motor_status': '0', 'light_status': '0', 'cover_status': '2'}
+2026-04-11 00:15:46 - INFO - filter_controller.py:100 - Déconnecté
+2026-04-11 00:15:46 - INFO - 02_SetFilter.py:88 - Déconnexion du panneau effectuée.
+2026-04-11 00:18:15 - INFO - filter_controller.py:75 - Configuration du port /dev/gflatpanel terminée
+2026-04-11 00:18:15 - INFO - filter_controller.py:90 - Connecté au port /dev/gflatpanel
+2026-04-11 00:18:15 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99002#
+2026-04-11 00:18:15 - INFO - 02_SetFilter.py:63 - Health check passed: Le panneau est en bonne santé.
+2026-04-11 00:18:15 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99002#
+2026-04-11 00:18:15 - INFO - filter_controller.py:224 - Device id: 99, Motor: 0, Light: 0, Cover: 2
+2026-04-11 00:18:15 - INFO - 02_SetFilter.py:66 - Device status retrieved: {'device_id': '99', 'motor_status': '0', 'light_status': '0', 'cover_status': '2'}
+2026-04-11 00:18:15 - INFO - filter_controller.py:100 - Déconnecté
+2026-04-11 00:18:15 - INFO - 02_SetFilter.py:87 - Déconnexion du panneau effectuée.
+2026-04-11 00:20:10 - INFO - filter_controller.py:75 - Configuration du port /dev/gflatpanel terminée
+2026-04-11 00:20:10 - INFO - filter_controller.py:90 - Connecté au port /dev/gflatpanel
+2026-04-11 00:20:11 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99002#
+2026-04-11 00:20:11 - INFO - 02_SetFilter.py:63 - Health check passed: Le panneau est en bonne santé.
+2026-04-11 00:20:11 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99002#
+2026-04-11 00:20:11 - INFO - filter_controller.py:224 - Device id: 99, Motor: 0, Light: 0, Cover: 2
+2026-04-11 00:20:11 - INFO - 02_SetFilter.py:66 - Device status retrieved: {'device_id': '99', 'motor_status': '0', 'light_status': '0', 'cover_status': '2'}
+2026-04-11 00:20:11 - INFO - filter_controller.py:100 - Déconnecté
+2026-04-11 00:20:11 - INFO - 02_SetFilter.py:85 - Déconnexion du panneau effectuée.
+2026-04-11 00:21:14 - INFO - filter_controller.py:75 - Configuration du port /dev/gflatpanel terminée
+2026-04-11 00:21:14 - INFO - filter_controller.py:90 - Connecté au port /dev/gflatpanel
+2026-04-11 00:21:14 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99002#
+2026-04-11 00:21:14 - INFO - 02_SetFilter.py:63 - Health check passed: Le panneau est en bonne santé.
+2026-04-11 00:21:14 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99002#
+2026-04-11 00:21:14 - INFO - filter_controller.py:224 - Device id: 99, Motor: 0, Light: 0, Cover: 2
+2026-04-11 00:21:14 - INFO - 02_SetFilter.py:66 - Device status retrieved: {'device_id': '99', 'motor_status': '0', 'light_status': '0', 'cover_status': '2'}
+2026-04-11 00:21:14 - INFO - filter_controller.py:100 - Déconnecté
+2026-04-11 00:21:14 - INFO - 02_SetFilter.py:85 - Déconnexion du panneau effectuée.
+2026-04-11 00:29:32 - INFO - filter_controller.py:75 - Configuration du port /dev/gflatpanel terminée
+2026-04-11 00:29:32 - INFO - filter_controller.py:90 - Connecté au port /dev/gflatpanel
+2026-04-11 00:29:32 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99002#
+2026-04-11 00:29:32 - INFO - 02_SetFilter.py:63 - Health check passed: Le panneau est en bonne santé.
+2026-04-11 00:29:32 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99002#
+2026-04-11 00:29:32 - INFO - filter_controller.py:224 - Device id: 99, Motor: 0, Light: 0, Cover: 2
+2026-04-11 00:29:32 - INFO - 02_SetFilter.py:66 - Device status retrieved: {'device_id': '99', 'motor_status': '0', 'light_status': '0', 'cover_status': '2'}
+2026-04-11 00:29:32 - INFO - filter_controller.py:100 - Déconnecté
+2026-04-11 00:29:32 - INFO - 02_SetFilter.py:113 - Déconnexion du panneau effectuée.
+2026-04-11 00:29:37 - INFO - filter_controller.py:75 - Configuration du port /dev/gflatpanel terminée
+2026-04-11 00:29:37 - INFO - filter_controller.py:90 - Connecté au port /dev/gflatpanel
+2026-04-11 00:29:37 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99002#
+2026-04-11 00:29:37 - INFO - 02_SetFilter.py:63 - Health check passed: Le panneau est en bonne santé.
+2026-04-11 00:29:37 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99002#
+2026-04-11 00:29:37 - INFO - filter_controller.py:224 - Device id: 99, Motor: 0, Light: 0, Cover: 2
+2026-04-11 00:29:37 - INFO - 02_SetFilter.py:66 - Device status retrieved: {'device_id': '99', 'motor_status': '0', 'light_status': '0', 'cover_status': '2'}
+2026-04-11 00:29:37 - INFO - 02_SetFilter.py:83 - ACTION: Ouvrir le filtre demandé.
+2026-04-11 00:29:38 - INFO - filter_controller.py:127 - Commande: >O# -> Réponse: *OOpened#
+2026-04-11 00:29:38 - INFO - filter_controller.py:173 - Panneau déjà ouvert
+2026-04-11 00:29:38 - ERROR - 02_SetFilter.py:91 - Échec de l'ouverture du filtre.
+2026-04-11 00:29:38 - INFO - filter_controller.py:100 - Déconnecté
+2026-04-11 00:29:38 - INFO - 02_SetFilter.py:113 - Déconnexion du panneau effectuée.
+2026-04-11 00:29:42 - INFO - filter_controller.py:75 - Configuration du port /dev/gflatpanel terminée
+2026-04-11 00:29:42 - INFO - filter_controller.py:90 - Connecté au port /dev/gflatpanel
+2026-04-11 00:29:42 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99002#
+2026-04-11 00:29:42 - INFO - 02_SetFilter.py:63 - Health check passed: Le panneau est en bonne santé.
+2026-04-11 00:29:42 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99002#
+2026-04-11 00:29:42 - INFO - filter_controller.py:224 - Device id: 99, Motor: 0, Light: 0, Cover: 2
+2026-04-11 00:29:42 - INFO - 02_SetFilter.py:66 - Device status retrieved: {'device_id': '99', 'motor_status': '0', 'light_status': '0', 'cover_status': '2'}
+2026-04-11 00:29:42 - INFO - 02_SetFilter.py:97 - ACTION: Fermer le filtre demandé.
+2026-04-11 00:29:43 - INFO - filter_controller.py:127 - Commande: >C# -> Réponse: 
+2026-04-11 00:29:53 - INFO - filter_controller.py:154 - Réponse reçue: *CClosed#
+2026-04-11 00:29:53 - INFO - filter_controller.py:199 - Panneau fermé avec succès
+2026-04-11 00:29:53 - ERROR - 02_SetFilter.py:105 - Échec de la fermeture du filtre.
+2026-04-11 00:29:53 - INFO - filter_controller.py:100 - Déconnecté
+2026-04-11 00:29:53 - INFO - 02_SetFilter.py:113 - Déconnexion du panneau effectuée.
+2026-04-11 00:29:56 - INFO - filter_controller.py:75 - Configuration du port /dev/gflatpanel terminée
+2026-04-11 00:29:56 - INFO - filter_controller.py:90 - Connecté au port /dev/gflatpanel
+2026-04-11 00:29:57 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99001#
+2026-04-11 00:29:57 - INFO - 02_SetFilter.py:63 - Health check passed: Le panneau est en bonne santé.
+2026-04-11 00:29:57 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99001#
+2026-04-11 00:29:57 - INFO - filter_controller.py:224 - Device id: 99, Motor: 0, Light: 0, Cover: 1
+2026-04-11 00:29:57 - INFO - 02_SetFilter.py:66 - Device status retrieved: {'device_id': '99', 'motor_status': '0', 'light_status': '0', 'cover_status': '1'}
+2026-04-11 00:29:57 - INFO - 02_SetFilter.py:83 - ACTION: Ouvrir le filtre demandé.
+2026-04-11 00:29:58 - INFO - filter_controller.py:127 - Commande: >O# -> Réponse: 
+2026-04-11 00:30:08 - INFO - filter_controller.py:154 - Réponse reçue: *OOpened#
+2026-04-11 00:30:08 - INFO - filter_controller.py:178 - Panneau ouvert avec succès
+2026-04-11 00:30:08 - ERROR - 02_SetFilter.py:91 - Échec de l'ouverture du filtre.
+2026-04-11 00:30:08 - INFO - filter_controller.py:100 - Déconnecté
+2026-04-11 00:30:08 - INFO - 02_SetFilter.py:113 - Déconnexion du panneau effectuée.
+2026-04-11 00:40:14 - INFO - filter_controller.py:75 - Configuration du port /dev/gflatpanel terminée
+2026-04-11 00:40:14 - INFO - filter_controller.py:90 - Connecté au port /dev/gflatpanel
+2026-04-11 00:40:14 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99002#
+2026-04-11 00:40:14 - INFO - 02_SetFilter.py:63 - Health check passed: Le panneau est en bonne santé.
+2026-04-11 00:40:14 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99002#
+2026-04-11 00:40:14 - INFO - filter_controller.py:224 - Device id: 99, Motor: 0, Light: 0, Cover: 2
+2026-04-11 00:40:14 - INFO - 02_SetFilter.py:66 - Device status retrieved: {'device_id': '99', 'motor_status': '0', 'light_status': '0', 'cover_status': '2'}
+2026-04-11 00:40:14 - INFO - filter_controller.py:100 - Déconnecté
+2026-04-11 00:40:14 - INFO - 02_SetFilter.py:113 - Déconnexion du panneau effectuée.
+2026-04-11 00:40:18 - INFO - filter_controller.py:75 - Configuration du port /dev/gflatpanel terminée
+2026-04-11 00:40:18 - INFO - filter_controller.py:90 - Connecté au port /dev/gflatpanel
+2026-04-11 00:40:18 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99002#
+2026-04-11 00:40:18 - INFO - 02_SetFilter.py:63 - Health check passed: Le panneau est en bonne santé.
+2026-04-11 00:40:18 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99002#
+2026-04-11 00:40:18 - INFO - filter_controller.py:224 - Device id: 99, Motor: 0, Light: 0, Cover: 2
+2026-04-11 00:40:18 - INFO - 02_SetFilter.py:66 - Device status retrieved: {'device_id': '99', 'motor_status': '0', 'light_status': '0', 'cover_status': '2'}
+2026-04-11 00:40:18 - INFO - 02_SetFilter.py:83 - ACTION: Ouvrir le filtre demandé.
+2026-04-11 00:40:18 - INFO - filter_controller.py:127 - Commande: >O# -> Réponse: *OOpened#
+2026-04-11 00:40:18 - INFO - filter_controller.py:173 - Panneau déjà ouvert
+2026-04-11 00:40:18 - ERROR - 02_SetFilter.py:94 - Une erreur est survenue lors de l'ouverture du filtre: type object 'CoverState' has no attribute 'OPEN'
+2026-04-11 00:40:18 - INFO - filter_controller.py:100 - Déconnecté
+2026-04-11 00:40:18 - INFO - 02_SetFilter.py:113 - Déconnexion du panneau effectuée.
+2026-04-11 00:40:22 - INFO - filter_controller.py:75 - Configuration du port /dev/gflatpanel terminée
+2026-04-11 00:40:22 - INFO - filter_controller.py:90 - Connecté au port /dev/gflatpanel
+2026-04-11 00:40:22 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99002#
+2026-04-11 00:40:22 - INFO - 02_SetFilter.py:63 - Health check passed: Le panneau est en bonne santé.
+2026-04-11 00:40:22 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99002#
+2026-04-11 00:40:22 - INFO - filter_controller.py:224 - Device id: 99, Motor: 0, Light: 0, Cover: 2
+2026-04-11 00:40:22 - INFO - 02_SetFilter.py:66 - Device status retrieved: {'device_id': '99', 'motor_status': '0', 'light_status': '0', 'cover_status': '2'}
+2026-04-11 00:40:22 - INFO - 02_SetFilter.py:97 - ACTION: Fermer le filtre demandé.
+2026-04-11 00:40:23 - INFO - filter_controller.py:127 - Commande: >C# -> Réponse: 
+2026-04-11 00:40:33 - INFO - filter_controller.py:154 - Réponse reçue: *CClosed#
+2026-04-11 00:40:33 - INFO - filter_controller.py:199 - Panneau fermé avec succès
+2026-04-11 00:40:33 - INFO - 02_SetFilter.py:102 - Filtre fermé avec succès.
+2026-04-11 00:40:33 - INFO - filter_controller.py:100 - Déconnecté
+2026-04-11 00:40:33 - INFO - 02_SetFilter.py:113 - Déconnexion du panneau effectuée.
+2026-04-11 00:40:37 - INFO - filter_controller.py:75 - Configuration du port /dev/gflatpanel terminée
+2026-04-11 00:40:37 - INFO - filter_controller.py:90 - Connecté au port /dev/gflatpanel
+2026-04-11 00:40:37 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99001#
+2026-04-11 00:40:37 - INFO - 02_SetFilter.py:63 - Health check passed: Le panneau est en bonne santé.
+2026-04-11 00:40:37 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99001#
+2026-04-11 00:40:37 - INFO - filter_controller.py:224 - Device id: 99, Motor: 0, Light: 0, Cover: 1
+2026-04-11 00:40:37 - INFO - 02_SetFilter.py:66 - Device status retrieved: {'device_id': '99', 'motor_status': '0', 'light_status': '0', 'cover_status': '1'}
+2026-04-11 00:40:37 - INFO - 02_SetFilter.py:83 - ACTION: Ouvrir le filtre demandé.
+2026-04-11 00:40:39 - INFO - filter_controller.py:127 - Commande: >O# -> Réponse: 
+2026-04-11 00:40:49 - INFO - filter_controller.py:154 - Réponse reçue: *OOpened#
+2026-04-11 00:40:49 - INFO - filter_controller.py:178 - Panneau ouvert avec succès
+2026-04-11 00:40:49 - ERROR - 02_SetFilter.py:94 - Une erreur est survenue lors de l'ouverture du filtre: type object 'CoverState' has no attribute 'OPEN'
+2026-04-11 00:40:49 - INFO - filter_controller.py:100 - Déconnecté
+2026-04-11 00:40:49 - INFO - 02_SetFilter.py:113 - Déconnexion du panneau effectuée.
+2026-04-11 00:41:01 - INFO - filter_controller.py:75 - Configuration du port /dev/gflatpanel terminée
+2026-04-11 00:41:01 - INFO - filter_controller.py:90 - Connecté au port /dev/gflatpanel
+2026-04-11 00:41:01 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99002#
+2026-04-11 00:41:01 - INFO - 02_SetFilter.py:63 - Health check passed: Le panneau est en bonne santé.
+2026-04-11 00:41:01 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99002#
+2026-04-11 00:41:01 - INFO - filter_controller.py:224 - Device id: 99, Motor: 0, Light: 0, Cover: 2
+2026-04-11 00:41:01 - INFO - 02_SetFilter.py:66 - Device status retrieved: {'device_id': '99', 'motor_status': '0', 'light_status': '0', 'cover_status': '2'}
+2026-04-11 00:41:01 - INFO - filter_controller.py:100 - Déconnecté
+2026-04-11 00:41:01 - INFO - 02_SetFilter.py:113 - Déconnexion du panneau effectuée.
+2026-04-11 00:41:03 - INFO - filter_controller.py:75 - Configuration du port /dev/gflatpanel terminée
+2026-04-11 00:41:03 - INFO - filter_controller.py:90 - Connecté au port /dev/gflatpanel
+2026-04-11 00:41:04 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99002#
+2026-04-11 00:41:04 - INFO - 02_SetFilter.py:63 - Health check passed: Le panneau est en bonne santé.
+2026-04-11 00:41:04 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99002#
+2026-04-11 00:41:04 - INFO - filter_controller.py:224 - Device id: 99, Motor: 0, Light: 0, Cover: 2
+2026-04-11 00:41:04 - INFO - 02_SetFilter.py:66 - Device status retrieved: {'device_id': '99', 'motor_status': '0', 'light_status': '0', 'cover_status': '2'}
+2026-04-11 00:41:04 - INFO - 02_SetFilter.py:97 - ACTION: Fermer le filtre demandé.
+2026-04-11 00:41:05 - INFO - filter_controller.py:127 - Commande: >C# -> Réponse: 
+2026-04-11 00:41:15 - INFO - filter_controller.py:154 - Réponse reçue: *CClosed#
+2026-04-11 00:41:15 - INFO - filter_controller.py:199 - Panneau fermé avec succès
+2026-04-11 00:41:15 - INFO - 02_SetFilter.py:102 - Filtre fermé avec succès.
+2026-04-11 00:41:15 - INFO - filter_controller.py:100 - Déconnecté
+2026-04-11 00:41:15 - INFO - 02_SetFilter.py:113 - Déconnexion du panneau effectuée.
+2026-04-11 00:41:18 - INFO - filter_controller.py:75 - Configuration du port /dev/gflatpanel terminée
+2026-04-11 00:41:18 - INFO - filter_controller.py:90 - Connecté au port /dev/gflatpanel
+2026-04-11 00:41:18 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99001#
+2026-04-11 00:41:18 - INFO - 02_SetFilter.py:63 - Health check passed: Le panneau est en bonne santé.
+2026-04-11 00:41:18 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99001#
+2026-04-11 00:41:18 - INFO - filter_controller.py:224 - Device id: 99, Motor: 0, Light: 0, Cover: 1
+2026-04-11 00:41:18 - INFO - 02_SetFilter.py:66 - Device status retrieved: {'device_id': '99', 'motor_status': '0', 'light_status': '0', 'cover_status': '1'}
+2026-04-11 00:41:18 - INFO - 02_SetFilter.py:97 - ACTION: Fermer le filtre demandé.
+2026-04-11 00:41:18 - INFO - filter_controller.py:127 - Commande: >C# -> Réponse: *CClosed#
+2026-04-11 00:41:18 - INFO - filter_controller.py:194 - Panneau déjà fermé
+2026-04-11 00:41:18 - INFO - 02_SetFilter.py:102 - Filtre fermé avec succès.
+2026-04-11 00:41:18 - INFO - filter_controller.py:100 - Déconnecté
+2026-04-11 00:41:18 - INFO - 02_SetFilter.py:113 - Déconnexion du panneau effectuée.
+2026-04-11 00:41:22 - INFO - filter_controller.py:75 - Configuration du port /dev/gflatpanel terminée
+2026-04-11 00:41:22 - INFO - filter_controller.py:90 - Connecté au port /dev/gflatpanel
+2026-04-11 00:41:22 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99001#
+2026-04-11 00:41:22 - INFO - 02_SetFilter.py:63 - Health check passed: Le panneau est en bonne santé.
+2026-04-11 00:41:22 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99001#
+2026-04-11 00:41:22 - INFO - filter_controller.py:224 - Device id: 99, Motor: 0, Light: 0, Cover: 1
+2026-04-11 00:41:22 - INFO - 02_SetFilter.py:66 - Device status retrieved: {'device_id': '99', 'motor_status': '0', 'light_status': '0', 'cover_status': '1'}
+2026-04-11 00:41:22 - INFO - 02_SetFilter.py:83 - ACTION: Ouvrir le filtre demandé.
+2026-04-11 00:41:24 - INFO - filter_controller.py:127 - Commande: >O# -> Réponse: 
+2026-04-11 00:41:34 - INFO - filter_controller.py:154 - Réponse reçue: *OOpened#
+2026-04-11 00:41:34 - INFO - filter_controller.py:178 - Panneau ouvert avec succès
+2026-04-11 00:41:34 - INFO - 02_SetFilter.py:88 - Filtre ouvert avec succès.
+2026-04-11 00:41:34 - INFO - filter_controller.py:100 - Déconnecté
+2026-04-11 00:41:34 - INFO - 02_SetFilter.py:113 - Déconnexion du panneau effectuée.
+2026-04-11 00:41:36 - INFO - filter_controller.py:75 - Configuration du port /dev/gflatpanel terminée
+2026-04-11 00:41:36 - INFO - filter_controller.py:90 - Connecté au port /dev/gflatpanel
+2026-04-11 00:41:36 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99002#
+2026-04-11 00:41:36 - INFO - 02_SetFilter.py:63 - Health check passed: Le panneau est en bonne santé.
+2026-04-11 00:41:36 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99002#
+2026-04-11 00:41:36 - INFO - filter_controller.py:224 - Device id: 99, Motor: 0, Light: 0, Cover: 2
+2026-04-11 00:41:36 - INFO - 02_SetFilter.py:66 - Device status retrieved: {'device_id': '99', 'motor_status': '0', 'light_status': '0', 'cover_status': '2'}
+2026-04-11 00:41:36 - INFO - 02_SetFilter.py:83 - ACTION: Ouvrir le filtre demandé.
+2026-04-11 00:41:36 - INFO - filter_controller.py:127 - Commande: >O# -> Réponse: *OOpened#
+2026-04-11 00:41:36 - INFO - filter_controller.py:173 - Panneau déjà ouvert
+2026-04-11 00:41:36 - INFO - 02_SetFilter.py:88 - Filtre ouvert avec succès.
+2026-04-11 00:41:36 - INFO - filter_controller.py:100 - Déconnecté
+2026-04-11 00:41:36 - INFO - 02_SetFilter.py:113 - Déconnexion du panneau effectuée.
+2026-04-11 00:41:58 - INFO - 01_Horaires.py:44 - SUCCÈS: Header par défaut chargé depuis ./ScriptHeader.txt
+2026-04-11 00:43:38 - INFO - filter_controller.py:75 - Configuration du port /dev/gflatpanel terminée
+2026-04-11 00:43:38 - INFO - filter_controller.py:90 - Connecté au port /dev/gflatpanel
+2026-04-11 00:43:38 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99002#
+2026-04-11 00:43:38 - INFO - 02_SetFilter.py:63 - Health check passed: Le panneau est en bonne santé.
+2026-04-11 00:43:38 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99002#
+2026-04-11 00:43:38 - INFO - filter_controller.py:224 - Device id: 99, Motor: 0, Light: 0, Cover: 2
+2026-04-11 00:43:38 - INFO - 02_SetFilter.py:66 - Device status retrieved: {'device_id': '99', 'motor_status': '0', 'light_status': '0', 'cover_status': '2'}
+2026-04-11 00:43:38 - INFO - filter_controller.py:100 - Déconnecté
+2026-04-11 00:43:38 - INFO - 02_SetFilter.py:113 - Déconnexion du panneau effectuée.
+2026-04-11 00:46:41 - INFO - filter_controller.py:75 - Configuration du port /dev/gflatpanel terminée
+2026-04-11 00:46:41 - INFO - filter_controller.py:90 - Connecté au port /dev/gflatpanel
+2026-04-11 00:46:41 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99002#
+2026-04-11 00:46:41 - INFO - 02_SetFilter.py:63 - Health check passed: Le panneau est en bonne santé.
+2026-04-11 00:46:41 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99002#
+2026-04-11 00:46:41 - INFO - filter_controller.py:224 - Device id: 99, Motor: 0, Light: 0, Cover: 2
+2026-04-11 00:46:41 - INFO - 02_SetFilter.py:66 - Device status retrieved: {'device_id': '99', 'motor_status': '0', 'light_status': '0', 'cover_status': '2'}
+2026-04-11 00:46:41 - INFO - filter_controller.py:100 - Déconnecté
+2026-04-11 00:46:41 - INFO - 02_SetFilter.py:116 - Déconnexion du panneau effectuée.
+2026-04-11 00:46:47 - INFO - filter_controller.py:75 - Configuration du port /dev/gflatpanel terminée
+2026-04-11 00:46:47 - INFO - filter_controller.py:90 - Connecté au port /dev/gflatpanel
+2026-04-11 00:46:47 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99002#
+2026-04-11 00:46:47 - INFO - 02_SetFilter.py:63 - Health check passed: Le panneau est en bonne santé.
+2026-04-11 00:46:47 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99002#
+2026-04-11 00:46:47 - INFO - filter_controller.py:224 - Device id: 99, Motor: 0, Light: 0, Cover: 2
+2026-04-11 00:46:47 - INFO - 02_SetFilter.py:66 - Device status retrieved: {'device_id': '99', 'motor_status': '0', 'light_status': '0', 'cover_status': '2'}
+2026-04-11 00:46:47 - INFO - 02_SetFilter.py:85 - ACTION: Ouvrir le filtre demandé.
+2026-04-11 00:46:48 - INFO - filter_controller.py:127 - Commande: >O# -> Réponse: *OOpened#
+2026-04-11 00:46:48 - INFO - filter_controller.py:173 - Panneau déjà ouvert
+2026-04-11 00:46:48 - INFO - 02_SetFilter.py:90 - Filtre ouvert avec succès.
+2026-04-11 00:46:48 - INFO - filter_controller.py:100 - Déconnecté
+2026-04-11 00:46:48 - INFO - 02_SetFilter.py:116 - Déconnexion du panneau effectuée.
+2026-04-11 00:46:54 - INFO - filter_controller.py:75 - Configuration du port /dev/gflatpanel terminée
+2026-04-11 00:46:54 - INFO - filter_controller.py:90 - Connecté au port /dev/gflatpanel
+2026-04-11 00:46:54 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99002#
+2026-04-11 00:46:54 - INFO - 02_SetFilter.py:63 - Health check passed: Le panneau est en bonne santé.
+2026-04-11 00:46:54 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99002#
+2026-04-11 00:46:54 - INFO - filter_controller.py:224 - Device id: 99, Motor: 0, Light: 0, Cover: 2
+2026-04-11 00:46:54 - INFO - 02_SetFilter.py:66 - Device status retrieved: {'device_id': '99', 'motor_status': '0', 'light_status': '0', 'cover_status': '2'}
+2026-04-11 00:46:54 - INFO - 02_SetFilter.py:100 - ACTION: Fermer le filtre demandé.
+2026-04-11 00:46:56 - INFO - filter_controller.py:127 - Commande: >C# -> Réponse: 
+2026-04-11 00:47:06 - INFO - filter_controller.py:154 - Réponse reçue: *CClosed#
+2026-04-11 00:47:06 - INFO - filter_controller.py:199 - Panneau fermé avec succès
+2026-04-11 00:47:06 - INFO - 02_SetFilter.py:105 - Filtre fermé avec succès.
+2026-04-11 00:47:06 - INFO - filter_controller.py:100 - Déconnecté
+2026-04-11 00:47:06 - INFO - 02_SetFilter.py:116 - Déconnexion du panneau effectuée.
+2026-04-11 00:51:40 - INFO - filter_controller.py:75 - Configuration du port /dev/gflatpanel terminée
+2026-04-11 00:51:40 - INFO - filter_controller.py:90 - Connecté au port /dev/gflatpanel
+2026-04-11 00:51:40 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99001#
+2026-04-11 00:51:40 - INFO - 02_SetFilter.py:63 - Health check passed: Le panneau est en bonne santé.
+2026-04-11 00:51:40 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99001#
+2026-04-11 00:51:40 - INFO - filter_controller.py:224 - Device id: 99, Motor: 0, Light: 0, Cover: 1
+2026-04-11 00:51:40 - INFO - 02_SetFilter.py:66 - Device status retrieved: {'device_id': '99', 'motor_status': '0', 'light_status': '0', 'cover_status': '1'}
+2026-04-11 00:51:40 - INFO - filter_controller.py:100 - Déconnecté
+2026-04-11 00:51:40 - INFO - 02_SetFilter.py:123 - Déconnexion du panneau effectuée.
+2026-04-11 00:56:45 - INFO - filter_controller.py:75 - Configuration du port /dev/gflatpanel terminée
+2026-04-11 00:56:45 - INFO - filter_controller.py:90 - Connecté au port /dev/gflatpanel
+2026-04-11 00:56:45 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99001#
+2026-04-11 00:56:45 - INFO - 02_SetFilter.py:63 - Health check passed: Le panneau est en bonne santé.
+2026-04-11 00:56:45 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99001#
+2026-04-11 00:56:45 - INFO - filter_controller.py:224 - Device id: 99, Motor: 0, Light: 0, Cover: 1
+2026-04-11 00:56:45 - INFO - 02_SetFilter.py:66 - Device status retrieved: {'device_id': '99', 'motor_status': '0', 'light_status': '0', 'cover_status': '1'}
+2026-04-11 00:56:45 - INFO - 02_SetFilter.py:92 - ACTION: Ouvrir le filtre demandé.
+2026-04-11 00:56:46 - INFO - filter_controller.py:127 - Commande: >O# -> Réponse: 
+2026-04-11 00:56:57 - INFO - filter_controller.py:154 - Réponse reçue: *OOpened#
+2026-04-11 00:56:57 - INFO - filter_controller.py:178 - Panneau ouvert avec succès
+2026-04-11 00:56:57 - INFO - 02_SetFilter.py:97 - Filtre ouvert avec succès.
+2026-04-11 00:56:57 - INFO - filter_controller.py:100 - Déconnecté
+2026-04-11 00:56:57 - INFO - 02_SetFilter.py:123 - Déconnexion du panneau effectuée.
+2026-04-11 00:58:39 - INFO - filter_controller.py:75 - Configuration du port /dev/gflatpanel terminée
+2026-04-11 00:58:39 - INFO - filter_controller.py:90 - Connecté au port /dev/gflatpanel
+2026-04-11 00:58:40 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99002#
+2026-04-11 00:58:40 - INFO - 02_SetFilter.py:63 - Health check passed: Le panneau est en bonne santé.
+2026-04-11 00:58:40 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99002#
+2026-04-11 00:58:40 - INFO - filter_controller.py:224 - Device id: 99, Motor: 0, Light: 0, Cover: 2
+2026-04-11 00:58:40 - INFO - 02_SetFilter.py:66 - Device status retrieved: {'device_id': '99', 'motor_status': '0', 'light_status': '0', 'cover_status': '2'}
+2026-04-11 00:58:40 - INFO - 02_SetFilter.py:107 - ACTION: Fermer le filtre demandé.
+2026-04-11 00:58:41 - INFO - filter_controller.py:127 - Commande: >C# -> Réponse: 
+2026-04-11 00:58:51 - INFO - filter_controller.py:154 - Réponse reçue: *CClosed#
+2026-04-11 00:58:51 - INFO - filter_controller.py:199 - Panneau fermé avec succès
+2026-04-11 00:58:51 - INFO - 02_SetFilter.py:112 - Filtre fermé avec succès.
+2026-04-11 00:58:51 - INFO - filter_controller.py:100 - Déconnecté
+2026-04-11 00:58:51 - INFO - 02_SetFilter.py:123 - Déconnexion du panneau effectuée.
+2026-04-11 00:59:22 - INFO - filter_controller.py:75 - Configuration du port /dev/gflatpanel terminée
+2026-04-11 00:59:22 - INFO - filter_controller.py:90 - Connecté au port /dev/gflatpanel
+2026-04-11 00:59:22 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99001#
+2026-04-11 00:59:22 - INFO - 02_SetFilter.py:63 - Health check passed: Le panneau est en bonne santé.
+2026-04-11 00:59:22 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99001#
+2026-04-11 00:59:22 - INFO - filter_controller.py:224 - Device id: 99, Motor: 0, Light: 0, Cover: 1
+2026-04-11 00:59:22 - INFO - 02_SetFilter.py:66 - Device status retrieved: {'device_id': '99', 'motor_status': '0', 'light_status': '0', 'cover_status': '1'}
+2026-04-11 00:59:22 - INFO - 02_SetFilter.py:107 - ACTION: Fermer le filtre demandé.
+2026-04-11 00:59:22 - INFO - filter_controller.py:127 - Commande: >C# -> Réponse: *CClosed#
+2026-04-11 00:59:22 - INFO - filter_controller.py:194 - Panneau déjà fermé
+2026-04-11 00:59:22 - INFO - 02_SetFilter.py:112 - Filtre fermé avec succès.
+2026-04-11 00:59:22 - INFO - filter_controller.py:100 - Déconnecté
+2026-04-11 00:59:22 - INFO - 02_SetFilter.py:123 - Déconnexion du panneau effectuée.
+2026-04-11 01:10:14 - INFO - filter_controller.py:75 - Configuration du port /dev/gflatpanel terminée
+2026-04-11 01:10:14 - INFO - filter_controller.py:90 - Connecté au port /dev/gflatpanel
+2026-04-11 01:10:15 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99001#
+2026-04-11 01:10:15 - INFO - 02_SetFilter.py:63 - Health check passed: Le panneau est en bonne santé.
+2026-04-11 01:10:15 - INFO - filter_controller.py:127 - Commande: >S# -> Réponse: *S99001#
+2026-04-11 01:10:15 - INFO - filter_controller.py:224 - Device id: 99, Motor: 0, Light: 0, Cover: 1
+2026-04-11 01:10:15 - INFO - 02_SetFilter.py:66 - Device status retrieved: {'device_id': '99', 'motor_status': '0', 'light_status': '0', 'cover_status': '1'}
+2026-04-11 01:10:15 - INFO - 02_SetFilter.py:92 - ACTION: Ouvrir le filtre demandé.
+2026-04-11 01:10:16 - INFO - filter_controller.py:127 - Commande: >O# -> Réponse: 
+2026-04-11 01:10:26 - INFO - filter_controller.py:154 - Réponse reçue: *OOpened#
+2026-04-11 01:10:26 - INFO - filter_controller.py:178 - Panneau ouvert avec succès
+2026-04-11 01:10:26 - INFO - 02_SetFilter.py:97 - Filtre ouvert avec succès.
+2026-04-11 01:10:26 - INFO - filter_controller.py:100 - Déconnecté
+2026-04-11 01:10:26 - INFO - 02_SetFilter.py:123 - Déconnexion du panneau effectuée.

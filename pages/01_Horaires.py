@@ -1,9 +1,14 @@
+#!/usr/bin/env python3
+"""
+Programme Python permettant de créer ou de modifier un script d'ordonnancement utilisé par Solar_Eclipse_Photography.
+Ce script utilise Streamlit pour l'interface utilisateur, et permet de saisir les heures des différentes étapes de l'éclipse (C1, C2, Max, C3, C4).
+Il offre également la possibilité de charger un fichier existant, de faire une copie de sécurité avant d'écraser un fichier, et de conserver les lignes déjà présentes dans le fichier si besoin.
+"""
 import streamlit as st
 import os
 from shutil import copy2
 from datetime import time, datetime
 import plotly.graph_objects as go
-import pandas as pd
 import logging
 
 # Configuration du logger
@@ -11,11 +16,11 @@ log_file = "app_activity.log"
 logging.basicConfig(
     filename=log_file,
     level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s',
+    format='%(asctime)s - %(levelname)s - %(filename)s:%(lineno)d - %(message)s',
     datefmt='%Y-%m-%d %H:%M:%S'
 )
 
-st.set_page_config(layout="wide")
+st.set_page_config(page_title="Horaires", page_icon="🕔", layout="wide")
 
 DOSSIERS_FAVORIS = {
     "📁 Répertoire local": os.getcwd(),
@@ -28,10 +33,20 @@ DOSSIERS_FAVORIS = {
 
 DEFAULT_TOWN = "Niort"
 DEFAULT_DATE = datetime.now()
-DEFAULT_HEADER = "# Fichier de description de l'ordonnancement des actions"
+DEFAULT_FILE_HEADER = "./ScriptHeader.txt"
 DEFAULT_CONFIG = "# Ligne de configuration principale \n# Config,C1,C2,Max,C3,C4 \n# C1 = Premier contact, C2 = Début totalité, Max = Maximum, C3 = Fin totalité, C4 = Dernier contact"
 DEFAULT_ACTION_CONFIG = "Config,"
 
+# Lecture du header par défaut
+try:
+    with open(DEFAULT_FILE_HEADER, "r", encoding="utf-8") as f:
+        DEFAULT_HEADER = f.readlines()
+        logging.info(f"SUCCÈS: Header par défaut chargé depuis {DEFAULT_FILE_HEADER}")
+except Exception as e:
+    logging.error(f"ERREUR: Impossible de charger le header par défaut : {e}")
+    DEFAULT_HEADER = ["# Fichier de description de l'ordonnancement des actions",
+                      "# Ce fichier est destiné à être lu par le script d'ordonnancement pour déclencher les actions aux heures spécifiées."
+    ]
 
 # Initialisation des valeurs par défaut pour les heures (H, M, S)
 for p in ["C1", "C2", "Max", "C3", "C4"]:
@@ -65,6 +80,10 @@ def charger_fichier_existant(chemin_complet, nom_du_fichier):
             st.session_state["lieu"] = lieu_extrait
             # Conversion de la chaîne JJ_MM_AAAA en objet date
             st.session_state["date_saisie"] = datetime.strptime(date_extraite_str, "%d_%m_%Y")
+            logging.info(f"SUCCÈS: Lieu et date extraits du nom du fichier : {lieu_extrait}, {date_extraite_str}")
+        else:
+            logging.warning(f"AVERTISSEMENT: Le nom du fichier ne respecte pas le format attendu : {nom_du_fichier}")
+            st.warning("Le nom du fichier ne respecte pas le format attendu (Lieu-Date). Les champs Lieu et Date n'ont pas été mis à jour.")
 
         # --- B. Extraire les Heures du CONTENU du fichier ---
         with open(chemin_complet, "r", encoding="utf-8") as f:
@@ -79,8 +98,11 @@ def charger_fichier_existant(chemin_complet, nom_du_fichier):
                         st.session_state[f"{p}_h"] = h
                         st.session_state[f"{p}_m"] = m
                         st.session_state[f"{p}_s"] = s
+        logging.info(f"SUCCÈS: Fichier chargé : {nom_du_fichier} depuis {chemin_complet}")
         st.success(f"✅ Fichier '{nom_du_fichier}' chargé !")
+        return lignes 
     except Exception as e:
+        logging.error(f"ERREUR: Impossible de charger le fichier : {e}")
         st.error(f"Erreur d'importation : {e}")
 
 # --- 4. FONCTION DE SAISIE D'HEURE DYNAMIQUE ---
@@ -120,6 +142,45 @@ def copier_fichier_securite(chemin_complet):
         st.error("⚠️ Une erreur est survenue lors de la création de la copie de sécurité.")
         return "Erreur lors de la copie de sécurité"
 
+# --- 6. FONCTION DE CONSERVATION DES LIGNES DEJA EXISTANTES (SI BESOIN) ---
+def conserver_lignes_existantes(chemin_complet, debut_ligne_nouvelles_donnees, nouvelles_lignes):
+    """Conserve les lignes existantes qui ne sont pas écrasées par les nouvelles données."""
+    try:
+        if os.path.isfile(chemin_complet):
+            with open(chemin_complet, "r", encoding="utf-8") as f:
+                lignes_existantes = f.readlines()
+                with open(chemin_complet, "w", encoding="utf-8") as f:
+                    for ligne in lignes_existantes:
+                        if ligne.startswith(debut_ligne_nouvelles_donnees):
+                            f.writelines(nouvelles_lignes + "\n")     # Ajoute la nouvelle ligne
+                            logging.info(f"SUCCÈS: Ligne existante écrasée par les nouvelles données dans : {chemin_complet}")    
+                        else:
+                            f.writelines(ligne)  # Conserve les anciennes lignes
+                        f.flush()  # Assure que les données sont écrites immédiatement
+            logging.info(f"SUCCÈS: Lignes existantes conservées et nouvelles lignes ajoutées dans : {chemin_complet}")
+            return "Lignes conservées et mises à jour"
+    except Exception as e:
+        logging.error(f"ERREUR: Impossible de conserver les lignes existantes : {e}")
+        return "Erreur lors de la conservation des lignes"
+
+# --- 7. FONCTION D'ÉCRITURE DANS UN NOUVEAU FICHIER ---
+def ecrire_nouveau_fichier(chemin_complet, contenu):
+    """Écrit le contenu dans un nouveau fichier."""
+    try:
+        with open(chemin_complet, "w", encoding="utf-8") as f:
+            for ligne in DEFAULT_HEADER:
+                f.write(ligne if ligne.endswith("\n") else ligne + "\n")    # Assure que chaque ligne se termine par un saut de ligne
+            f.write(DEFAULT_CONFIG + "\n")
+            f.write(contenu + "\n")
+            f.write("#\n")
+            f.flush()  # Assure que les données sont écrites immédiatement
+        # On écrit dans le log
+        logging.info(f"SUCCÈS: Fichier créé : {nom_fichier} dans {chemin_final}")
+        return "Fichier créé"
+    except Exception as e:
+        logging.error(f"ERREUR: Impossible d'écrire dans le fichier : {e}")
+        return "Erreur lors de la création du fichier"
+
 # 1. Fonction pour calculer la différence entre deux objets time
 def calculer_duree(t_debut, t_fin):
     # On utilise une date fictive pour le calcul
@@ -142,6 +203,7 @@ st.header("🕒 Éditeur de script d'ordonnancement")
 
 # SECTION 1: Nettoyage du formulaire
 if st.button("🧹 Vider le formulaire"):
+    logging.info("ACTION: Formulaire réinitialisé par l'utilisateur.")
     # On remet les valeurs par défaut dans le session_state
     st.session_state["lieu"] = DEFAULT_TOWN
     st.session_state["date_saisie"] = DEFAULT_DATE
@@ -330,19 +392,22 @@ if st.button("💾 Enregistrer les modifications"):
         if copier_fichier_securite(chemin_complet) == "Erreur lors de la copie de sécurité":
             st.error("L'enregistrement a été annulé en raison d'une erreur lors de la création de la copie de sécurité.")
             st.stop()
-
         # Ensuite, on écrit le nouveau contenu
-        try:
-            with open(chemin_complet, "w", encoding="utf-8") as f:
-                f.write(DEFAULT_HEADER + "\n" + "\n")
-                f.write(DEFAULT_CONFIG + "\n")
-                f.write(contenu)
-            # On écrit dans le log
-            logging.info(f"SUCCÈS: Fichier créé : {nom_fichier} dans {chemin_final}")
-            st.success(f"✅ Enregistré : `{nom_fichier}`")
-            #st.balloons()
-        except Exception as e:
-            logging.error(f"ERREUR: Impossible d'écrire dans le fichier : {e}")
-            st.error("⚠️ Une erreur est survenue lors de l'enregistrement du fichier.")
+        if os.path.isfile(chemin_complet):
+            if conserver_lignes_existantes(chemin_complet, "Config,", contenu) == "Lignes conservées et mises à jour":
+                logging.info(f"SUCCÈS: Lignes existantes conservées et mises à jour dans : {chemin_complet}")
+                st.success(f"✅ Mise à jour de : `{nom_fichier}`")
+            else:
+                logging.error(f"ERREUR: Impossible de conserver les lignes existantes dans : {chemin_complet}")
+                st.error("L'enregistrement a été annulé en raison d'une erreur lors de la conservation des lignes existantes.")
+                st.stop()
+        else:
+            if ecrire_nouveau_fichier(chemin_complet, contenu) == "Fichier créé":
+                logging.info(f"SUCCÈS: Création du fichier : {nom_fichier} dans {chemin_final}")
+                st.success(f"✅ Enregistré : `{nom_fichier}`")
+                #st.balloons()
+            else:
+                logging.error(f"ERREUR: Impossible d'écrire dans le fichier : {chemin_complet}")
+                st.error("⚠️ Une erreur est survenue lors de l'enregistrement du fichier.")
     else:
         st.error("⚠️ La chronologie n'est pas respectée (C1 < C2 < Max < C3 < C4) !")
