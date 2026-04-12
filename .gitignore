@@ -1,3 +1,24 @@
+# Fichiers et dossiers à ignorer
+log/
 archives/
 fichiers_enregistres/
+
+# Métadonnées de build et distribution
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# Fichiers de cache Python
+__pycache__/
+*.py[cod]
+config/__pycache__/
 hardware/__pycache__/
+scheduling/__pycache__/
+utils/__pycache__/
+filter_control/__pycache__/
+
+# Environnements virtuels (si vous en utilisez)
+venv/
+.venv/
+._*

@@ -7,7 +7,7 @@ st.set_page_config(page_title="Logs Système", page_icon="📜")
 st.title("📜 Journaux d'activité")
 st.info("Cette page affiche les derniers événements enregistrés par l'application.")
 
-log_file = "app_activity.log"
+log_file = "/home/ozuntini/log/app_activity.log"
 
 # --- LOGIQUE DE LECTURE ---
 if os.path.exists(log_file):

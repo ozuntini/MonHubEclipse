@@ -12,7 +12,7 @@ import plotly.graph_objects as go
 import logging
 
 # Configuration du logger
-log_file = "app_activity.log"
+log_file = "/home/ozuntini/log/app_activity.log"
 logging.basicConfig(
     filename=log_file,
     level=logging.INFO,

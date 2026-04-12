@@ -1,7 +1,8 @@
 import streamlit as st
+import os
 
 # Configuration de la page
-st.set_page_config(page_title="Mon Hub Eclipse", layout="centered")
+st.set_page_config(page_title="Mon Hub Eclipse", layout="centered", page_icon="😎")
 
 st.title("😎 Hub Eclipse 😎")
 st.write("""
