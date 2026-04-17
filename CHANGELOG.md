@@ -1,3 +1,11 @@
+# Changelog 18/04/2026
+- Création du Verification.py pour contrôler la config du boitier avant de commencer
+
+# Changelog 14/04/2026
+- Modification du setfilter pour forcer le cycle de configuration des positions Open et Closed
+- Ajout de la fonction de vérification du setting
+- Cycle de réglage contraint, obligation de valider le set 1 avant le 2
+
 # Changelog 12/04/2026
 - Création du lanceur MHE_Launcher.sh
 - Adaptation au passage de filter_controler en package
