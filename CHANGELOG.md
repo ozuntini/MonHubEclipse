@@ -1,5 +1,8 @@
 # Changelog 18/04/2026
 - Création du Verification.py pour contrôler la config du boitier avant de commencer
+- Ajout de la partie vérification manuelle
+- ajout du bouton pour synchroniser l'horloge du boitier et du PC
+- ajout d'un journal des checks
 
 # Changelog 14/04/2026
 - Modification du setfilter pour forcer le cycle de configuration des positions Open et Closed

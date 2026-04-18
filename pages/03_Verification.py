@@ -29,6 +29,14 @@ logging.basicConfig(
     datefmt='%Y-%m-%d %H:%M:%S'
 )
 
+# Configuration du journal des checks
+check_log_file = "/home/ozuntini/log/checks.log"
+check_logger = logging.getLogger("checks_logger")
+check_logger.setLevel(logging.INFO)
+check_handler = logging.FileHandler(check_log_file)
+check_handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S'))
+check_logger.addHandler(check_handler)
+
 # Fonction pour initialiser la caméra et le contexte
 def initialize_camera():
     context = gp.gp_context_new()
@@ -68,12 +76,24 @@ def get_param_by_name(camera, name, context):
         logging.error(f"Failed to get parameter: {name}")  
         return None
 
+# Fonction pour définir un paramètre par son nom
+def set_param_by_name(camera, name, value, context):
+    try:
+        config = gp.check_result(gp.gp_camera_get_config(camera, context))
+        widget = gp.check_result(gp.gp_widget_get_child_by_name(config, name))
+        gp.check_result(gp.gp_widget_set_value(widget, value))
+        gp.check_result(gp.gp_camera_set_config(camera, config, context))
+        logging.info(f"Parameter '{name}' set to '{value}' successfully.")
+    except gp.GPhoto2Error:
+        logging.error(f"Failed to set parameter: {name} to {value}")
+
 # Configuration de la page Streamlit
 st.set_page_config(page_title="Set Config", page_icon="📷", layout="wide")
 
 # Titre de la page
-st.title(f"Vérification de la configuration du boitier")
-if st.button("🔄 Recharger la page pour refaire les vérifications"):
+st.title("😎 Solar Eclipse Photography")
+st.header(f"✅ Vérification de la configuration du boitier")
+if st.button("Recharger la page pour refaire les vérifications", icon="🔄", help="Cliquez pour refaire les vérifications"):
     st.rerun()
 
 # Initialisation de la caméra
@@ -90,7 +110,7 @@ st.subheader(f"📷 Vérifications automatiques du {model}")
 
 # Liste des paramètres à vérifier avec leurs conditions d'alerte
 params_to_check = [
-    ("datetime", "Date et heure du boitier"),
+    ("datetime", "Date et heure du boitier", ">", 2),  # Alerte si la différence de temps est supérieure à 2 secondes (la précision est 1 seconde)
     ("batterylevel", "Niveau de batterie", ">", 95),
     ("autopoweroff", "Durée du autopoweroff", ">", 60),
     ("autoexposuremode", "Mode d'exposition automatique", "==", "Manual"),
@@ -107,17 +127,25 @@ for param_name, display_name, *check in params_to_check:
     widget = get_param_by_name(camera, param_name, context)
     if widget is not None:
         if param_name == "datetime":
+            accept_diff_seconds = check[1] if len(check) > 1 else 2  # Utiliser la valeur d'alerte spécifique ou 2 secondes par défaut
             camera_time_seconds = gp.check_result(gp.gp_widget_get_value(widget))
             camera_time = datetime.fromtimestamp(camera_time_seconds)
             pc_time = datetime.now()
             time_diff = abs((camera_time - pc_time).total_seconds())
-            if time_diff > 1:
-                st.warning(f"{display_name} : {camera_time} (Différence avec PC : {time_diff:.2f} secondes) - La différence de temps est supérieure à 1 seconde.", icon="⚠️")
+            if time_diff > accept_diff_seconds:
+                st.warning(f"{display_name} : {camera_time} (Différence avec PC : {time_diff:.2f} secondes) - La différence de temps est supérieure à {accept_diff_seconds} secondes.", icon="⚠️")
                 logging.warning(f"{display_name} : {camera_time} (Différence avec PC : {time_diff:.2f} secondes)")
-                logging.warning("La différence de temps entre la caméra et le PC est supérieure à 1 seconde.")
+                logging.warning(f"La différence de temps entre la caméra et le PC est supérieure à {accept_diff_seconds} secondes.")
+                if st.button("Synchroniser la date et l'heure de la caméra avec le PC", icon="⏱️", help="Cliquez pour synchroniser la date et l'heure de la caméra avec celle du PC"):
+                    set_param_by_name(camera, "syncdatetimeutc", 1, context)
+                    st.success("Date et heure de la caméra synchronisées avec le PC.", icon="✅")
+                    logging.info("Date et heure de la caméra synchronisées avec le PC.")
+                    st.rerun()
             else:
                 st.success(f"{display_name} : {camera_time} (Différence avec PC : {time_diff:.2f} secondes)", icon="✅")
                 logging.info(f"{display_name} : {camera_time} (Différence avec PC : {time_diff:.2f} secondes)")
+                check_logger.info(f"{display_name} : {camera_time} (Différence avec PC : {time_diff:.2f} secondes) - OK")
+
         else:
             value = gp.check_result(gp.gp_widget_get_value(widget))
             logging.info(f"{display_name} : {value}")
@@ -132,8 +160,10 @@ for param_name, display_name, *check in params_to_check:
                     logging.warning(f"{display_name} : {value} doit être {expected_value}.")
                 else:
                     st.success(f"{display_name} : {value}", icon="✅")
+                    check_logger.info(f"{display_name} : {value} - OK")
             else:
                 st.success(f"{display_name} : {value}", icon="✅")
+                check_logger.info(f"{display_name} : {value} - OK")
 
 # Vérification spécifique pour le modèle 6D
 if "6D" in model:
@@ -149,16 +179,23 @@ if "6D" in model:
                     logging.warning(f"{display_name} : {value} - {display_name} doit être {expected_value} pour le modèle 6D.")
                 else:
                     st.success(f"{display_name} : {value}", icon="✅")
+                    check_logger.info(f"{display_name} : {value} - OK")
             else:
                 st.success(f"{display_name} : {value}", icon="✅")
+                check_logger.info(f"{display_name} : {value} - OK")
 
 # Sous-titre pour les vérifications manuelles
-st.subheader(" 🫵 Vérifications manuelles à effectuer :")
+st.subheader(" 🫵 Vérifications manuelles à effectuer")
 
-st.write("Vérifier que la carte SD est bien vidée et formatée.")
+agree = st.checkbox("Vérifier que la carte SD est bien vidée et formatée.", value=False)
+if agree:
+    check_logger.info("Vérification manuelle : Carte SD vidée et formatée - OK")
+
 # Vérification spécifique pour le modèle R6
 if "R6" in model:
-    st.write("Vérifier que le Review Image est désactivé.")
+    agree = st.checkbox("Vérifier que le Review Image est désactivé.", value=False)
+    if agree:
+        check_logger.info("Vérification manuelle : Review Image désactivé - OK")
 
 # Fermer la connexion à la caméra
 close_camera(camera, context)

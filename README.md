@@ -8,6 +8,7 @@ Accueil 😎
 
 1. Génération des fichiers d'ordonnancement 🕔
 2. Tests et configuration du filtre automatique 🛠️
+3. Vérification de la config du boitier avant lancement 📷
 3. Application de lecture des logs 📜
 
 ## Installation
