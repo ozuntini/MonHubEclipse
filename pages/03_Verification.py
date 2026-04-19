@@ -29,13 +29,21 @@ logging.basicConfig(
     datefmt='%Y-%m-%d %H:%M:%S'
 )
 
-# Configuration du journal des checks
 check_log_file = "/home/ozuntini/log/checks.log"
-check_logger = logging.getLogger("checks_logger")
-check_logger.setLevel(logging.INFO)
-check_handler = logging.FileHandler(check_log_file)
-check_handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S'))
-check_logger.addHandler(check_handler)
+
+def _write_check(status: str, label: str, valeur: str) -> None:
+    date_str = datetime.now().strftime("%Y-%m-%d")
+    time_str = datetime.now().strftime("%H:%M:%S")
+    line = f"{date_str} - {time_str} - {label} - {valeur} - {status}\n"
+    with open(check_log_file, "a", encoding="utf-8") as f:
+        f.write(line)
+        f.flush()
+
+def check_ok(label: str, valeur: str) -> None:
+    _write_check("✅", label, valeur)
+
+def check_ko(label: str, valeur: str) -> None:
+    _write_check("❌", label, valeur)
 
 # Fonction pour initialiser la caméra et le contexte
 def initialize_camera():
@@ -92,8 +100,17 @@ st.set_page_config(page_title="Set Config", page_icon="📷", layout="wide")
 
 # Titre de la page
 st.title("😎 Solar Eclipse Photography")
+if "checks_logged" not in st.session_state:
+    st.session_state.checks_logged = False
 st.header(f"✅ Vérification de la configuration du boitier")
 if st.button("Recharger la page pour refaire les vérifications", icon="🔄", help="Cliquez pour refaire les vérifications"):
+    st.session_state.checks_logged = False
+    # reset checkboxes
+    st.session_state.sd_formatted = False
+    st.session_state.review_image_disabled = False
+    # reset "déjà loggé" (si tu utilises ces flags)
+    st.session_state.sd_ok_logged = False
+    st.session_state.r6_ok_logged = False
     st.rerun()
 
 # Initialisation de la caméra
@@ -119,10 +136,17 @@ params_to_check = [
     ("drivemode", "Mode de prise de vue", "==", "Single"),
 ]
 
-EOS6D_specific_check = ("reviewtime", "Review Time", "==", "None")
-EOSR6_specific_check = ()
+EOS6D_specific_check = [("reviewtime", "Review Time", "==", "None"),
+                        ("mirrorlock", "Mirror Lockup", "==", "0")]
+EOSR6_specific_check = []
 
 # Vérification de chaque paramètre et affichage des résultats
+do_log_checks = not st.session_state.checks_logged
+
+# Ligne d'en-tête du tableau de vérifications
+if do_log_checks:
+    check_ok("Vérifications automatiques", f"Début des vérifications pour le modèle {model}")
+
 for param_name, display_name, *check in params_to_check:
     widget = get_param_by_name(camera, param_name, context)
     if widget is not None:
@@ -136,6 +160,8 @@ for param_name, display_name, *check in params_to_check:
                 st.warning(f"{display_name} : {camera_time} (Différence avec PC : {time_diff:.2f} secondes) - La différence de temps est supérieure à {accept_diff_seconds} secondes.", icon="⚠️")
                 logging.warning(f"{display_name} : {camera_time} (Différence avec PC : {time_diff:.2f} secondes)")
                 logging.warning(f"La différence de temps entre la caméra et le PC est supérieure à {accept_diff_seconds} secondes.")
+                if do_log_checks:    
+                    check_ko(display_name, f"{camera_time} (diff={time_diff:.2f}s)")
                 if st.button("Synchroniser la date et l'heure de la caméra avec le PC", icon="⏱️", help="Cliquez pour synchroniser la date et l'heure de la caméra avec celle du PC"):
                     set_param_by_name(camera, "syncdatetimeutc", 1, context)
                     st.success("Date et heure de la caméra synchronisées avec le PC.", icon="✅")
@@ -144,8 +170,8 @@ for param_name, display_name, *check in params_to_check:
             else:
                 st.success(f"{display_name} : {camera_time} (Différence avec PC : {time_diff:.2f} secondes)", icon="✅")
                 logging.info(f"{display_name} : {camera_time} (Différence avec PC : {time_diff:.2f} secondes)")
-                check_logger.info(f"{display_name} : {camera_time} (Différence avec PC : {time_diff:.2f} secondes) - OK")
-
+                if do_log_checks:    
+                    check_ok(display_name, f"{camera_time} (diff={time_diff:.2f}s)")
         else:
             value = gp.check_result(gp.gp_widget_get_value(widget))
             logging.info(f"{display_name} : {value}")
@@ -155,19 +181,25 @@ for param_name, display_name, *check in params_to_check:
                 if operator == ">" and int(value.strip().rstrip("%")) <= int(expected_value):
                     st.warning(f"{display_name} : {value} doit être supérieur à {expected_value}.", icon="⚠️")
                     logging.warning(f"{display_name} : {value} doit être supérieur à {expected_value}.")
+                    if do_log_checks:    
+                        check_ko(display_name, f"{value} <= {expected_value}")
                 elif operator == "==" and value != expected_value:
                     st.warning(f"{display_name} : {value} doit être {expected_value}.", icon="⚠️")
                     logging.warning(f"{display_name} : {value} doit être {expected_value}.")
+                    if do_log_checks:    
+                        check_ko(display_name, f"{value} != {expected_value}")
                 else:
                     st.success(f"{display_name} : {value}", icon="✅")
-                    check_logger.info(f"{display_name} : {value} - OK")
+                    if do_log_checks:    
+                        check_ok(display_name, f"{value}")
             else:
                 st.success(f"{display_name} : {value}", icon="✅")
-                check_logger.info(f"{display_name} : {value} - OK")
+                if do_log_checks:    
+                    check_ok(display_name, f"{value}")
 
 # Vérification spécifique pour le modèle 6D
 if "6D" in model:
-    for param_name, display_name, *check in [EOS6D_specific_check]:
+    for param_name, display_name, *check in EOS6D_specific_check:
         widget = get_param_by_name(camera, param_name, context)
         if widget is not None:
             value = gp.check_result(gp.gp_widget_get_value(widget))
@@ -177,25 +209,35 @@ if "6D" in model:
                 if operator == "==" and value != expected_value:
                     st.warning(f"{display_name} : {value} - {display_name} doit être {expected_value} pour le modèle 6D.", icon="⚠️")
                     logging.warning(f"{display_name} : {value} - {display_name} doit être {expected_value} pour le modèle 6D.")
+                    if do_log_checks:    
+                        check_ko(display_name, f"{value} != {expected_value}")
                 else:
                     st.success(f"{display_name} : {value}", icon="✅")
-                    check_logger.info(f"{display_name} : {value} - OK")
+                    if do_log_checks:    
+                        check_ok(display_name, f"{value}")
             else:
                 st.success(f"{display_name} : {value}", icon="✅")
-                check_logger.info(f"{display_name} : {value} - OK")
+                if do_log_checks:    
+                    check_ok(display_name, f"{value}")
 
 # Sous-titre pour les vérifications manuelles
 st.subheader(" 🫵 Vérifications manuelles à effectuer")
 
-agree = st.checkbox("Vérifier que la carte SD est bien vidée et formatée.", value=False)
-if agree:
-    check_logger.info("Vérification manuelle : Carte SD vidée et formatée - OK")
-
+if "sd_ok_logged" not in st.session_state:
+    st.session_state.sd_ok_logged = False
+agree = st.checkbox("Vérifier que la carte SD est bien vidée et formatée.", key="sd_formatted", value=False)
+if agree and not st.session_state.sd_ok_logged:
+    check_ok("Vérification manuelle : Carte SD vidée et formatée", "🫵")
+    st.session_state.sd_ok_logged = True
+    
 # Vérification spécifique pour le modèle R6
 if "R6" in model:
-    agree = st.checkbox("Vérifier que le Review Image est désactivé.", value=False)
-    if agree:
-        check_logger.info("Vérification manuelle : Review Image désactivé - OK")
+    if "r6_ok_logged" not in st.session_state:
+        st.session_state.r6_ok_logged = False
+    agree = st.checkbox("Vérifier que le Review Image est désactivé.", key="review_image_disabled", value=False)
+    if agree and not st.session_state.r6_ok_logged:
+        check_ok("Vérification manuelle : Review Image désactivé", "🫵")
+        st.session_state.r6_ok_logged = True
 
 # Fermer la connexion à la caméra
 close_camera(camera, context)

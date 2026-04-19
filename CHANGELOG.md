@@ -1,3 +1,8 @@
+# Changelog 19/04/2026
+- Corrections suite à un test de réinstallation complète
+- Ajout du chargement de la librairie Filter.controler
+- Amélioration de la gestion du journal des check 
+
 # Changelog 18/04/2026
 - Création du Verification.py pour contrôler la config du boitier avant de commencer
 - Ajout de la partie vérification manuelle

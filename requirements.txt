@@ -2,5 +2,9 @@
 
 # Web framework for building interactive dashboards
 streamlit>=1.56.0
+
 # Data visualization library for creating interactive plots
 plotly==6.6.0
+
+# Filter Control
+git+https://github.com/ozuntini/Filter_Control.git
