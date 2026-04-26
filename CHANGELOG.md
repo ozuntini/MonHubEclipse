@@ -1,4 +1,7 @@
-# Changelog 19/04/2026
+# Changelog 2026/04/26
+- Adaptation pour le regroupement dans Eclipse Project
+
+# Changelog 2026/02/19
 - Corrections suite à un test de réinstallation complète
 - Ajout du chargement de la librairie Filter.controler
 - Amélioration de la gestion du journal des check 

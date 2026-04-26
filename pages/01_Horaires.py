@@ -12,7 +12,11 @@ import plotly.graph_objects as go
 import logging
 
 # Configuration du logger
-log_file = "/home/ozuntini/log/app_activity.log"
+DOSSIER_LOG = os.path.expanduser("~/log")
+if not os.path.exists(DOSSIER_LOG):
+    os.makedirs(DOSSIER_LOG)
+
+log_file = os.path.join(DOSSIER_LOG, "horaires.log")
 logging.basicConfig(
     filename=log_file,
     level=logging.INFO,
@@ -20,14 +24,19 @@ logging.basicConfig(
     datefmt='%Y-%m-%d %H:%M:%S'
 )
 
+# Dossier local
+DOSSIER_LOCAL = os.path.expanduser("~/Documents")
+if not os.path.exists(DOSSIER_LOCAL):
+    os.makedirs(DOSSIER_LOCAL)
+
 st.set_page_config(page_title="Horaires", page_icon="🕔", layout="wide")
 
 DOSSIERS_FAVORIS = {
-    "📁 Répertoire local": os.getcwd(),
-    "🗂️ Archives": "/home/ozuntini/Documents/Eclipses/archives_Scripts",
-    "🇪🇸 Espagne 2026": "/home/ozuntini/Documents/Eclipses/Spain2026/Scripts",
-    "🇪🇬 Égypte 2027": "/home/ozuntini/Documents/Eclipses/Egypt2027/Scripts",
-    "💾 Sauvegarde Réseau": "/home/ozuntini/Public",
+    "📁 Répertoire local": DOSSIER_LOCAL,
+    "🗂️ Archives": os.path.join(DOSSIER_LOCAL, "Eclipses/archives_Scripts"),
+    "🇪🇸 Espagne 2026": os.path.join(DOSSIER_LOCAL, "Eclipses/Spain2026/Scripts"),
+    "🇪🇬 Égypte 2027": os.path.join(DOSSIER_LOCAL, "Eclipses/Egypt2027/Scripts"),
+    "💾 Sauvegarde Réseau": os.path.join(DOSSIER_LOCAL, "Public"),
     "➕ Autre...": "CUSTOM"
 }
 

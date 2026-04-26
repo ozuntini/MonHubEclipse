@@ -6,13 +6,15 @@ Il utilise la classe `GeminiAutoFlatPanel` définie dans `filter_controller.py`.
 
 import streamlit as st
 import logging
+import os
 from datetime import datetime
 from filter_control.filter_controller import GeminiAutoFlatPanel, CoverState
 
 # Configuration du logger
-log_file = "/home/ozuntini/log/app_activity.log"
+log_file = os.path.expanduser("~/log/set_filter.log")
 logging.basicConfig(
     filename=log_file,
+    filemode='a',
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(filename)s:%(lineno)d - %(message)s',
     datefmt='%Y-%m-%d %H:%M:%S'

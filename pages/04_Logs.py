@@ -7,11 +7,25 @@ st.set_page_config(page_title="Logs Système", page_icon="📜")
 st.title("📜 Journaux d'activité")
 st.info("Cette page affiche les derniers événements enregistrés par l'application.")
 
-log_file = "/home/ozuntini/log/app_activity.log"
+read_log_file = os.path.expanduser("~/log/horaires.log")
+
+DOSSIERS_LOG = os.path.expanduser("~/log")
+if not os.path.exists(DOSSIERS_LOG):
+    os.makedirs(DOSSIERS_LOG)
+
+if DOSSIERS_LOG and os.path.isdir(DOSSIERS_LOG):
+    # Option de relecture : lister les fichiers .log du dossier
+    fichiers = [f for f in os.listdir(DOSSIERS_LOG) if f.endswith(".log")]
+    if fichiers:
+        fichier_a_ouvrir = st.selectbox("🔎 Ouvrir un fichier de log ?", ["-- Aucun --"] + fichiers)
+        if fichier_a_ouvrir != "-- Aucun --":
+            read_log_file = os.path.join(DOSSIERS_LOG, fichier_a_ouvrir)
+    else:
+        st.warning("Aucun fichier de log trouvé dans le dossier.", icon="⚠️")
 
 # --- LOGIQUE DE LECTURE ---
-if os.path.exists(log_file):
-    with open(log_file, "r", encoding="utf-8") as f:
+if os.path.exists(read_log_file):
+    with open(read_log_file, "r", encoding="utf-8") as f:
         # On lit les lignes et on les inverse pour avoir les plus récentes en haut
         logs = f.readlines()
         logs.reverse() 
@@ -39,18 +53,18 @@ if os.path.exists(log_file):
     # --- ACTIONS ---
     if st.button("🔁 Rotation des logs"):
         # On renomme et on décale les fichiers de log actuel pour créer une archive
-        if os.path.exists(log_file):
-            if os.path.exists(f"{log_file}.old"):
-                shutil.copy(f"{log_file}.old", f"{log_file}.old2")
-            shutil.copy(log_file, f"{log_file}.old")
-        with open(log_file, "w") as f:
+        if os.path.exists(read_log_file):
+            if os.path.exists(f"{read_log_file}.old"):
+                shutil.copy(f"{read_log_file}.old", f"{read_log_file}.old2")
+            shutil.copy(read_log_file, f"{read_log_file}.old")
+        with open(read_log_file, "w") as f:
             f.write("") # On vide le fichier de log actuel
         st.success("Rotation des logs effectuée. Les anciens logs sont sauvegardés.")
         st.rerun()
 
     # --- ACTIONS ---
     if st.button("🗑️ Effacer les logs"):
-        with open(log_file, "w") as f:
+        with open(read_log_file, "w") as f:
             f.write("")
         st.success("Les logs ont été effacés.")
         st.rerun()
@@ -58,8 +72,8 @@ else:
     st.write("Aucun fichier de log trouvé. Les actions n'ont pas encore été enregistrées.")
 
 # --- BOUTON DE TÉLÉCHARGEMENT ---
-if os.path.exists(log_file):
-    with open(log_file, "rb") as file:
+if os.path.exists(read_log_file):
+    with open(read_log_file, "rb") as file:
         st.download_button(
             label="📥 Télécharger le fichier log complet",
             data=file,

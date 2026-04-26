@@ -17,11 +17,12 @@ Vérification à faire manuellement :
 
 import streamlit as st
 import gphoto2 as gp
+import os
 from datetime import datetime
 import logging
 
 # Configuration du logger
-log_file = "/home/ozuntini/log/app_activity.log"
+log_file = os.path.expanduser("~/log/verification.log")
 logging.basicConfig(
     filename=log_file,
     level=logging.INFO,
@@ -29,7 +30,7 @@ logging.basicConfig(
     datefmt='%Y-%m-%d %H:%M:%S'
 )
 
-check_log_file = "/home/ozuntini/log/checks.log"
+check_log_file = os.path.expanduser("~/log/checks.log")
 
 def _write_check(status: str, label: str, valeur: str) -> None:
     date_str = datetime.now().strftime("%Y-%m-%d")
