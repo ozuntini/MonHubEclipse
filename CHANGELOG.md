@@ -1,4 +1,5 @@
 # Changelog 2026/04/26
+- Modification du fichier log
 - Adaptation pour le regroupement dans Eclipse Project
 
 # Changelog 2026/02/19

@@ -11,10 +11,14 @@ from datetime import datetime
 from filter_control.filter_controller import GeminiAutoFlatPanel, CoverState
 
 # Configuration du logger
-log_file = os.path.expanduser("~/log/set_filter.log")
+DOSSIERS_LOG = os.path.expanduser("~/Eclipse_Project/logs")
+if not os.path.exists(DOSSIERS_LOG):
+    os.makedirs(DOSSIERS_LOG)
+
+log_file = os.path.join(DOSSIERS_LOG, "set_filter.log")
+
 logging.basicConfig(
     filename=log_file,
-    filemode='a',
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(filename)s:%(lineno)d - %(message)s',
     datefmt='%Y-%m-%d %H:%M:%S'

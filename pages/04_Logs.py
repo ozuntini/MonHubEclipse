@@ -7,19 +7,18 @@ st.set_page_config(page_title="Logs Système", page_icon="📜")
 st.title("📜 Journaux d'activité")
 st.info("Cette page affiche les derniers événements enregistrés par l'application.")
 
-read_log_file = os.path.expanduser("~/log/horaires.log")
-
-DOSSIERS_LOG = os.path.expanduser("~/log")
+DOSSIERS_LOG = os.path.expanduser("~/Eclipse_Project/logs")
 if not os.path.exists(DOSSIERS_LOG):
     os.makedirs(DOSSIERS_LOG)
+
+read_log_file = os.path.join(DOSSIERS_LOG, "horaires.log")
 
 if DOSSIERS_LOG and os.path.isdir(DOSSIERS_LOG):
     # Option de relecture : lister les fichiers .log du dossier
     fichiers = [f for f in os.listdir(DOSSIERS_LOG) if f.endswith(".log")]
     if fichiers:
-        fichier_a_ouvrir = st.selectbox("🔎 Ouvrir un fichier de log ?", ["-- Aucun --"] + fichiers)
-        if fichier_a_ouvrir != "-- Aucun --":
-            read_log_file = os.path.join(DOSSIERS_LOG, fichier_a_ouvrir)
+        fichier_a_ouvrir = st.selectbox("🔎 Ouvrir un fichier de log ?", fichiers, index=0)
+        read_log_file = os.path.join(DOSSIERS_LOG, fichier_a_ouvrir)
     else:
         st.warning("Aucun fichier de log trouvé dans le dossier.", icon="⚠️")
 

@@ -12,11 +12,12 @@ import plotly.graph_objects as go
 import logging
 
 # Configuration du logger
-DOSSIER_LOG = os.path.expanduser("~/log")
+DOSSIER_LOG = os.path.expanduser("~/Eclipse_Project/logs")
 if not os.path.exists(DOSSIER_LOG):
     os.makedirs(DOSSIER_LOG)
 
 log_file = os.path.join(DOSSIER_LOG, "horaires.log")
+
 logging.basicConfig(
     filename=log_file,
     level=logging.INFO,
@@ -25,7 +26,7 @@ logging.basicConfig(
 )
 
 # Dossier local
-DOSSIER_LOCAL = os.path.expanduser("~/Documents")
+DOSSIER_LOCAL = os.path.expanduser("~/Eclipse_Project")
 if not os.path.exists(DOSSIER_LOCAL):
     os.makedirs(DOSSIER_LOCAL)
 
