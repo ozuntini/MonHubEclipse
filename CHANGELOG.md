@@ -1,3 +1,6 @@
+# Changelog 2026/04/27
+- Correction de la gestion des logs pour écrire dans des fichiers différents.
+
 # Changelog 2026/04/26
 - Modification du fichier log
 - Adaptation pour le regroupement dans Eclipse Project

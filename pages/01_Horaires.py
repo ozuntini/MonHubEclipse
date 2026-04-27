@@ -16,14 +16,15 @@ DOSSIER_LOG = os.path.expanduser("~/Eclipse_Project/logs")
 if not os.path.exists(DOSSIER_LOG):
     os.makedirs(DOSSIER_LOG)
 
-log_file = os.path.join(DOSSIER_LOG, "horaires.log")
-
-logging.basicConfig(
-    filename=log_file,
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(filename)s:%(lineno)d - %(message)s',
-    datefmt='%Y-%m-%d %H:%M:%S'
-)
+logger = logging.getLogger("horaires")
+if not logger.handlers:
+    handler = logging.FileHandler(os.path.join(DOSSIER_LOG, "horaires.log"))
+    handler.setFormatter(logging.Formatter(
+        '%(asctime)s - %(levelname)s - %(filename)s:%(lineno)d - %(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S'
+    ))
+    logger.addHandler(handler)
+    logger.setLevel(logging.INFO)
 
 # Dossier local
 DOSSIER_LOCAL = os.path.expanduser("~/Eclipse_Project")
@@ -51,9 +52,9 @@ DEFAULT_ACTION_CONFIG = "Config,"
 try:
     with open(DEFAULT_FILE_HEADER, "r", encoding="utf-8") as f:
         DEFAULT_HEADER = f.readlines()
-        logging.info(f"SUCCÈS: Header par défaut chargé depuis {DEFAULT_FILE_HEADER}")
+        logger.info(f"SUCCÈS: Header par défaut chargé depuis {DEFAULT_FILE_HEADER}")
 except Exception as e:
-    logging.error(f"ERREUR: Impossible de charger le header par défaut : {e}")
+    logger.error(f"ERREUR: Impossible de charger le header par défaut : {e}")
     DEFAULT_HEADER = ["# Fichier de description de l'ordonnancement des actions",
                       "# Ce fichier est destiné à être lu par le script d'ordonnancement pour déclencher les actions aux heures spécifiées."
     ]
@@ -90,9 +91,9 @@ def charger_fichier_existant(chemin_complet, nom_du_fichier):
             st.session_state["lieu"] = lieu_extrait
             # Conversion de la chaîne JJ_MM_AAAA en objet date
             st.session_state["date_saisie"] = datetime.strptime(date_extraite_str, "%d_%m_%Y")
-            logging.info(f"SUCCÈS: Lieu et date extraits du nom du fichier : {lieu_extrait}, {date_extraite_str}")
+            logger.info(f"SUCCÈS: Lieu et date extraits du nom du fichier : {lieu_extrait}, {date_extraite_str}")
         else:
-            logging.warning(f"AVERTISSEMENT: Le nom du fichier ne respecte pas le format attendu : {nom_du_fichier}")
+            logger.warning(f"AVERTISSEMENT: Le nom du fichier ne respecte pas le format attendu : {nom_du_fichier}")
             st.warning("Le nom du fichier ne respecte pas le format attendu (Lieu-Date). Les champs Lieu et Date n'ont pas été mis à jour.")
 
         # --- B. Extraire les Heures du CONTENU du fichier ---
@@ -108,11 +109,11 @@ def charger_fichier_existant(chemin_complet, nom_du_fichier):
                         st.session_state[f"{p}_h"] = h
                         st.session_state[f"{p}_m"] = m
                         st.session_state[f"{p}_s"] = s
-        logging.info(f"SUCCÈS: Fichier chargé : {nom_du_fichier} depuis {chemin_complet}")
+        logger.info(f"SUCCÈS: Fichier chargé : {nom_du_fichier} depuis {chemin_complet}")
         st.success(f"✅ Fichier '{nom_du_fichier}' chargé !")
         return lignes 
     except Exception as e:
-        logging.error(f"ERREUR: Impossible de charger le fichier : {e}")
+        logger.error(f"ERREUR: Impossible de charger le fichier : {e}")
         st.error(f"Erreur d'importation : {e}")
 
 # --- 4. FONCTION DE SAISIE D'HEURE DYNAMIQUE ---
@@ -144,11 +145,11 @@ def copier_fichier_securite(chemin_complet):
             nom_sauvegarde = f"{nom_sans_ext}_backup_{timestamp}{ext}"
             chemin_sauvegarde = os.path.join(os.path.dirname(chemin_complet), nom_sauvegarde)
             copy2(chemin_complet, chemin_sauvegarde)
-            logging.info(f"SUCCÈS: Copie de sécurité créée : {nom_sauvegarde}")
+            logger.info(f"SUCCÈS: Copie de sécurité créée : {nom_sauvegarde}")
             st.info(f"⚠️ Une copie de sécurité a été créée : `{nom_sauvegarde}`")
             return "Copie de sécurité créée"
     except Exception as e:
-        logging.error(f"ERREUR: Impossible de créer une copie de sécurité : {e}")
+        logger.error(f"ERREUR: Impossible de créer une copie de sécurité : {e}")
         st.error("⚠️ Une erreur est survenue lors de la création de la copie de sécurité.")
         return "Erreur lors de la copie de sécurité"
 
@@ -163,14 +164,14 @@ def conserver_lignes_existantes(chemin_complet, debut_ligne_nouvelles_donnees, n
                     for ligne in lignes_existantes:
                         if ligne.startswith(debut_ligne_nouvelles_donnees):
                             f.writelines(nouvelles_lignes + "\n")     # Ajoute la nouvelle ligne
-                            logging.info(f"SUCCÈS: Ligne existante écrasée par les nouvelles données dans : {chemin_complet}")    
+                            logger.info(f"SUCCÈS: Ligne existante écrasée par les nouvelles données dans : {chemin_complet}")    
                         else:
                             f.writelines(ligne)  # Conserve les anciennes lignes
                         f.flush()  # Assure que les données sont écrites immédiatement
-            logging.info(f"SUCCÈS: Lignes existantes conservées et nouvelles lignes ajoutées dans : {chemin_complet}")
+            logger.info(f"SUCCÈS: Lignes existantes conservées et nouvelles lignes ajoutées dans : {chemin_complet}")
             return "Lignes conservées et mises à jour"
     except Exception as e:
-        logging.error(f"ERREUR: Impossible de conserver les lignes existantes : {e}")
+        logger.error(f"ERREUR: Impossible de conserver les lignes existantes : {e}")
         return "Erreur lors de la conservation des lignes"
 
 # --- 7. FONCTION D'ÉCRITURE DANS UN NOUVEAU FICHIER ---
@@ -185,10 +186,10 @@ def ecrire_nouveau_fichier(chemin_complet, contenu):
             f.write("#\n")
             f.flush()  # Assure que les données sont écrites immédiatement
         # On écrit dans le log
-        logging.info(f"SUCCÈS: Fichier créé : {nom_fichier} dans {chemin_final}")
+        logger.info(f"SUCCÈS: Fichier créé : {nom_fichier} dans {chemin_final}")
         return "Fichier créé"
     except Exception as e:
-        logging.error(f"ERREUR: Impossible d'écrire dans le fichier : {e}")
+        logger.error(f"ERREUR: Impossible d'écrire dans le fichier : {e}")
         return "Erreur lors de la création du fichier"
 
 # 1. Fonction pour calculer la différence entre deux objets time
@@ -213,7 +214,7 @@ st.header("🕒 Éditeur de script d'ordonnancement")
 
 # SECTION 1: Nettoyage du formulaire
 if st.button("🧹 Vider le formulaire"):
-    logging.info("ACTION: Formulaire réinitialisé par l'utilisateur.")
+    logger.info("ACTION: Formulaire réinitialisé par l'utilisateur.")
     # On remet les valeurs par défaut dans le session_state
     st.session_state["lieu"] = DEFAULT_TOWN
     st.session_state["date_saisie"] = DEFAULT_DATE
@@ -249,14 +250,14 @@ if chemin_final and os.path.isdir(chemin_final):
             if st.button("Charger les données"):
                 try:
                     charger_fichier_existant(os.path.join(chemin_final, fichier_a_ouvrir), fichier_a_ouvrir)
-                    logging.info(f"SUCCÈS: Fichier chargé : {fichier_a_ouvrir} depuis {chemin_final}")
+                    logger.info(f"SUCCÈS: Fichier chargé : {fichier_a_ouvrir} depuis {chemin_final}")
                 except Exception as e:
                     st.error(f"Erreur lors du chargement du fichier : {e}")
-                    logging.error(f"ERREUR: Impossible de charger le fichier : {e}")
+                    logger.error(f"ERREUR: Impossible de charger le fichier : {e}")
 else:
     if nom_selectionne == "➕ Autre..." and chemin_final:
         st.error("Dossier introuvable.")
-        logging.warning(f"AVERTISSEMENT: Chemin manuel introuvable : {chemin_final}")
+        logger.warning(f"AVERTISSEMENT: Chemin manuel introuvable : {chemin_final}")
         st.button("Réinitialiser", on_click=vider_chemin)
     st.stop()
 
@@ -405,19 +406,19 @@ if st.button("💾 Enregistrer les modifications"):
         # Ensuite, on écrit le nouveau contenu
         if os.path.isfile(chemin_complet):
             if conserver_lignes_existantes(chemin_complet, "Config,", contenu) == "Lignes conservées et mises à jour":
-                logging.info(f"SUCCÈS: Lignes existantes conservées et mises à jour dans : {chemin_complet}")
+                logger.info(f"SUCCÈS: Lignes existantes conservées et mises à jour dans : {chemin_complet}")
                 st.success(f"✅ Mise à jour de : `{nom_fichier}`")
             else:
-                logging.error(f"ERREUR: Impossible de conserver les lignes existantes dans : {chemin_complet}")
+                logger.error(f"ERREUR: Impossible de conserver les lignes existantes dans : {chemin_complet}")
                 st.error("L'enregistrement a été annulé en raison d'une erreur lors de la conservation des lignes existantes.")
                 st.stop()
         else:
             if ecrire_nouveau_fichier(chemin_complet, contenu) == "Fichier créé":
-                logging.info(f"SUCCÈS: Création du fichier : {nom_fichier} dans {chemin_final}")
+                logger.info(f"SUCCÈS: Création du fichier : {nom_fichier} dans {chemin_final}")
                 st.success(f"✅ Enregistré : `{nom_fichier}`")
                 #st.balloons()
             else:
-                logging.error(f"ERREUR: Impossible d'écrire dans le fichier : {chemin_complet}")
+                logger.error(f"ERREUR: Impossible d'écrire dans le fichier : {chemin_complet}")
                 st.error("⚠️ Une erreur est survenue lors de l'enregistrement du fichier.")
     else:
         st.error("⚠️ La chronologie n'est pas respectée (C1 < C2 < Max < C3 < C4) !")

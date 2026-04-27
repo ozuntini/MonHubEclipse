@@ -26,17 +26,17 @@ DOSSIERS_LOG = os.path.expanduser("~/Eclipse_Project/logs")
 if not os.path.exists(DOSSIERS_LOG):
     os.makedirs(DOSSIERS_LOG)
 
-log_file = os.path.join(DOSSIERS_LOG, "verification.log")
-
-logging.basicConfig(
-    filename=log_file,
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(filename)s:%(lineno)d - %(message)s',
-    datefmt='%Y-%m-%d %H:%M:%S'
-)
+logger = logging.getLogger("verification")
+if not logger.handlers:
+    handler = logging.FileHandler(os.path.join(DOSSIERS_LOG, "verification.log"))
+    handler.setFormatter(logging.Formatter(
+        '%(asctime)s - %(levelname)s - %(filename)s:%(lineno)d - %(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S'
+    ))
+    logger.addHandler(handler)
+    logger.setLevel(logging.INFO)
 
 check_log_file = os.path.join(DOSSIERS_LOG, "checks.log")
-
 def _write_check(status: str, label: str, valeur: str) -> None:
     date_str = datetime.now().strftime("%Y-%m-%d")
     time_str = datetime.now().strftime("%H:%M:%S")
@@ -47,9 +47,11 @@ def _write_check(status: str, label: str, valeur: str) -> None:
 
 def check_ok(label: str, valeur: str) -> None:
     _write_check("✅", label, valeur)
+    logger.info(f"Check OK: {label} - {valeur}")
 
 def check_ko(label: str, valeur: str) -> None:
     _write_check("❌", label, valeur)
+    logger.error(f"Check KO: {label} - {valeur}")
 
 # Fonction pour initialiser la caméra et le contexte
 def initialize_camera():
@@ -57,26 +59,26 @@ def initialize_camera():
     camera = gp.check_result(gp.gp_camera_new())
     try:
         gp.check_result(gp.gp_camera_init(camera, context))
-        logging.info("Camera initialized successfully.")
+        logger.info("Camera initialized successfully.")
         return camera, context
     except gp.GPhoto2Error:
-        logging.error("No camera found.")
+        logger.error("No camera found.")
         return None, None
 
 # Fonction pour fermer la connexion à la caméra
 def close_camera(camera, context):
     gp.gp_camera_exit(camera, context)
-    logging.info("Camera connection closed.")
+    logger.info("Camera connection closed.")
 
 # Fonction pour récupérer le modèle de la caméra
 def get_camera_model(camera, context):
     try:
         config = gp.check_result(gp.gp_camera_get_config(camera, context))
         model_widget = gp.check_result(gp.gp_widget_get_child_by_name(config, "cameramodel"))
-        logging.info("Camera model retrieved successfully.")
+        logger.info("Camera model retrieved successfully.")
         return gp.check_result(gp.gp_widget_get_value(model_widget))
     except gp.GPhoto2Error:
-        logging.error("Failed to get camera model.")
+        logger.error("Failed to get camera model.")
         return "Unknown Model"
     
 # Fonction pour récupérer un paramètre par son nom
@@ -84,10 +86,10 @@ def get_param_by_name(camera, name, context):
     try:
         config = gp.check_result(gp.gp_camera_get_config(camera, context))
         widget = gp.check_result(gp.gp_widget_get_child_by_name(config, name))
-        logging.info(f"Parameter '{name}' retrieved successfully.")
+        logger.info(f"Parameter '{name}' retrieved successfully.")
         return widget
     except gp.GPhoto2Error:
-        logging.error(f"Failed to get parameter: {name}")  
+        logger.error(f"Failed to get parameter: {name}")  
         return None
 
 # Fonction pour définir un paramètre par son nom
@@ -97,9 +99,9 @@ def set_param_by_name(camera, name, value, context):
         widget = gp.check_result(gp.gp_widget_get_child_by_name(config, name))
         gp.check_result(gp.gp_widget_set_value(widget, value))
         gp.check_result(gp.gp_camera_set_config(camera, config, context))
-        logging.info(f"Parameter '{name}' set to '{value}' successfully.")
+        logger.info(f"Parameter '{name}' set to '{value}' successfully.")
     except gp.GPhoto2Error:
-        logging.error(f"Failed to set parameter: {name} to {value}")
+        logger.error(f"Failed to set parameter: {name} to {value}")
 
 # Configuration de la page Streamlit
 st.set_page_config(page_title="Set Config", page_icon="📷", layout="wide")
@@ -164,34 +166,34 @@ for param_name, display_name, *check in params_to_check:
             time_diff = abs((camera_time - pc_time).total_seconds())
             if time_diff > accept_diff_seconds:
                 st.warning(f"{display_name} : {camera_time} (Différence avec PC : {time_diff:.2f} secondes) - La différence de temps est supérieure à {accept_diff_seconds} secondes.", icon="⚠️")
-                logging.warning(f"{display_name} : {camera_time} (Différence avec PC : {time_diff:.2f} secondes)")
-                logging.warning(f"La différence de temps entre la caméra et le PC est supérieure à {accept_diff_seconds} secondes.")
+                logger.warning(f"{display_name} : {camera_time} (Différence avec PC : {time_diff:.2f} secondes)")
+                logger.warning(f"La différence de temps entre la caméra et le PC est supérieure à {accept_diff_seconds} secondes.")
                 if do_log_checks:    
                     check_ko(display_name, f"{camera_time} (diff={time_diff:.2f}s)")
                 if st.button("Synchroniser la date et l'heure de la caméra avec le PC", icon="⏱️", help="Cliquez pour synchroniser la date et l'heure de la caméra avec celle du PC"):
                     set_param_by_name(camera, "syncdatetimeutc", 1, context)
                     st.success("Date et heure de la caméra synchronisées avec le PC.", icon="✅")
-                    logging.info("Date et heure de la caméra synchronisées avec le PC.")
+                    logger.info("Date et heure de la caméra synchronisées avec le PC.")
                     st.rerun()
             else:
                 st.success(f"{display_name} : {camera_time} (Différence avec PC : {time_diff:.2f} secondes)", icon="✅")
-                logging.info(f"{display_name} : {camera_time} (Différence avec PC : {time_diff:.2f} secondes)")
+                logger.info(f"{display_name} : {camera_time} (Différence avec PC : {time_diff:.2f} secondes)")
                 if do_log_checks:    
                     check_ok(display_name, f"{camera_time} (diff={time_diff:.2f}s)")
         else:
             value = gp.check_result(gp.gp_widget_get_value(widget))
-            logging.info(f"{display_name} : {value}")
+            logger.info(f"{display_name} : {value}")
             # Add specific checks and alerts based on the parameter
             if check:
                 operator, expected_value = check
                 if operator == ">" and int(value.strip().rstrip("%")) <= int(expected_value):
                     st.warning(f"{display_name} : {value} doit être supérieur à {expected_value}.", icon="⚠️")
-                    logging.warning(f"{display_name} : {value} doit être supérieur à {expected_value}.")
+                    logger.warning(f"{display_name} : {value} doit être supérieur à {expected_value}.")
                     if do_log_checks:    
                         check_ko(display_name, f"{value} <= {expected_value}")
                 elif operator == "==" and value != expected_value:
                     st.warning(f"{display_name} : {value} doit être {expected_value}.", icon="⚠️")
-                    logging.warning(f"{display_name} : {value} doit être {expected_value}.")
+                    logger.warning(f"{display_name} : {value} doit être {expected_value}.")
                     if do_log_checks:    
                         check_ko(display_name, f"{value} != {expected_value}")
                 else:
@@ -209,12 +211,12 @@ if "6D" in model:
         widget = get_param_by_name(camera, param_name, context)
         if widget is not None:
             value = gp.check_result(gp.gp_widget_get_value(widget))
-            logging.info(f"{display_name} : {value}")
+            logger.info(f"{display_name} : {value}")
             if check:
                 operator, expected_value = check
                 if operator == "==" and value != expected_value:
                     st.warning(f"{display_name} : {value} - {display_name} doit être {expected_value} pour le modèle 6D.", icon="⚠️")
-                    logging.warning(f"{display_name} : {value} - {display_name} doit être {expected_value} pour le modèle 6D.")
+                    logger.warning(f"{display_name} : {value} - {display_name} doit être {expected_value} pour le modèle 6D.")
                     if do_log_checks:    
                         check_ko(display_name, f"{value} != {expected_value}")
                 else:
