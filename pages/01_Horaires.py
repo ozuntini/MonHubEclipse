@@ -355,7 +355,7 @@ fig.update_layout(
         showgrid=True,
         gridcolor='whitesmoke',
         range=[
-            datetime.combine(today, time(valeurs[0].hour-1, 0)), 
+            datetime.combine(today, time(valeurs[0].hour-1, 0)) if valeurs[0].hour > 0 else datetime.combine(today, time(0, 0)), 
             datetime.combine(today, time(valeurs[-1].hour+1, 0)) if valeurs[-1].hour < 23 else datetime.combine(today, time(23, 59))
         ] # Ajoute une marge d'une heure avant/après
     ),
