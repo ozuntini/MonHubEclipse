@@ -1,5 +1,6 @@
 # Changelog 2026/04/27
 - Correction de la gestion des logs pour écrire dans des fichiers différents.
+- Gestion des graphiques pour une heure > 23h
 
 # Changelog 2026/04/26
 - Modification du fichier log

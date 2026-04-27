@@ -356,7 +356,7 @@ fig.update_layout(
         gridcolor='whitesmoke',
         range=[
             datetime.combine(today, time(valeurs[0].hour-1, 0)), 
-            datetime.combine(today, time(valeurs[-1].hour+1, 0))
+            datetime.combine(today, time(valeurs[-1].hour+1, 0)) if valeurs[-1].hour < 23 else datetime.combine(today, time(23, 59))
         ] # Ajoute une marge d'une heure avant/après
     ),
     yaxis=dict(
