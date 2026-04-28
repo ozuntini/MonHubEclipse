@@ -1,3 +1,6 @@
+# Changelog 2026/04/28
+- Correction de la gestion des marges avant et après sur le graphique
+
 # Changelog 2026/04/27
 - Correction de la gestion des logs pour écrire dans des fichiers différents.
 - Gestion des graphiques pour une heure > 23h
