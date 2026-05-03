@@ -236,7 +236,7 @@ def _time_line(circonstances: dict) -> None:
         Automatically advance to the next one when the current is exceeded. """
     
     # List of circumstances in order
-    circumstance_keys = ["C1", "C2", "Max", "C3", "C4"]
+    circumstance_keys = {"C1": "Premier contact", "C2": "Deuxième contact", "Max": "Maximum", "C3": "Troisième contact", "C4": "Quatrième contact"}
     
     # Parse all circumstance timestamps
     parsed = {}
@@ -286,8 +286,17 @@ def _time_line(circonstances: dict) -> None:
     if active_key and next_delay:
         hours, remainder = divmod(int(next_delay.total_seconds()), 3600)
         minutes, seconds = divmod(remainder, 60)
-        delay_str = f"{hours:02d}:{minutes:02d}:{seconds:02d}"
-        st.info(f"**Prochaine circonstance : {active_key}** | Délai : **{delay_str}**\n\n{info_str}", icon="⏱️")
+        icon="⏱️"
+        if hours <= 0:
+            delay_str = f"{minutes:02d} min {seconds:02d} sec"
+            if minutes <= 0:
+                delay_str = f"{seconds:02d} sec"
+                icon = "⚠️"
+                st.warning(f"**{delay_str}** avant le {circumstance_keys[active_key]}\n\n{info_str}", icon=icon)
+                return
+        else:
+            delay_str = f"{hours:02d}h {minutes:02d} min {seconds:02d} sec"
+        st.info(f"**{delay_str}** avant le {circumstance_keys[active_key]}\n\n{info_str}", icon=icon)
     else:
         st.warning(f"Toutes les circonstances sont dépassées ou indéfinies\n\n{info_str}", icon="⚠️")
 
@@ -334,7 +343,7 @@ def main() -> None:
     st.title("🌑 Eclipse Photography — Monitoring en temps réel")
     
     # -- - Time Line + digital clock ---
-    time_line_col, clock_col = st.columns([4, 1])
+    time_line_col, clock_col = st.columns([3, 1])
     with time_line_col:
         entries = st.session_state.entries
         circonstances = _reading_circumstance(entries)

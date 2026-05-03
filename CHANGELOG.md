@@ -3,6 +3,7 @@
 - Modification de la mise en page du moniteur
 - Récupération et affichage des circonstances locales de l'éclipse, des status de batterie et de filtre
 - Corrections diverses
+- Amélioration de l'affichage de la timeline
 
 ## 2026/05/01
 - Ajout du moniteur
