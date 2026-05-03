@@ -369,7 +369,7 @@ fig.update_layout(
 )
 
 # 4. Affichage
-st.plotly_chart(fig, use_container_width=True)
+st.plotly_chart(fig, width="stretch")
 
 # --- 7. INTERFACE : DURÉE DES INTERVALLES ---
 st.subheader("🔎 Vérification des Circonstances locales de l'éclipse")
