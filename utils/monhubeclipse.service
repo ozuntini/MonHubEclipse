@@ -1,0 +1,26 @@
+[Unit]
+Description=MonHubEclipse (Streamlit)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ozuntini
+Group=ozuntini
+WorkingDirectory=/home/ozuntini/Eclipse_Project/MonHubEclipse/
+
+# Streamlit écoute en local seulement (sécurité), Nginx exposera le port 80
+ExecStart=/home/ozuntini/eclipse_env/bin/streamlit run Accueil.py --server.address 127.0.0.1 --server.port 8501
+
+Restart=always
+RestartSec=3
+
+# Un environnement un peu plus “propre” côté systemd
+Environment=HOME=/home/ozuntini
+Environment=PYTHONUNBUFFERED=1
+
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

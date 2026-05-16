@@ -7,6 +7,20 @@ et ce projet adhère à [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [Version 1.0.1] - 2026-05-16
+### Ajouté (Added)
+- Documentation sur la création d'un service pour lancer automatiquement le Hub.
+- Installeur du service systemd (install.sh)
+
+### Modifié (Changed)
+- Mise à jour du README.md.
+
+### Corrigé (Fixed)
+- 
+
+### Supprimé (Removed)
+- 
+
 ## [Version 1.0.0] - 2026-05-15
 ### Ajouté (Added)
 - Versioning de l'application
@@ -24,7 +38,6 @@ Le fichier aaaaa.log et renommé en aaaaa.log.datetime.now.
 
 ### Supprimé (Removed)
 - Renommage des log en log.old.
-
 
 ## 2026/05/03
 - Modification de la mise en page du moniteur

@@ -38,6 +38,11 @@ ou
 ou
 > MHE_launcher.sh
 
+## Service systemd
+
+Le script install-systemd-services.sh permet d'installer un service système qui active automatiquement streamlit Accueil.py.
+c.f. documentation [SERVICE_SYSTEMD.md](./SERVICE_SYSTEMD.md)
+
 ## Contribution
 Les contributions sont les bienvenues ! Veuillez soumettre une pull request.
 
