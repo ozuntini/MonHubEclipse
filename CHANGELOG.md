@@ -1,4 +1,31 @@
 # Changelog
+
+Tous les changements notables pour ce projet seront documentés dans ce fichier.
+
+Le format est basé sur [Keep a Changelog](https://keepachangelog.com/),
+et ce projet adhère à [Semantic Versioning](https://semver.org/).
+
+---
+
+## [Version 1.0.0] - 2026-05-15
+### Ajouté (Added)
+- Versioning de l'application
+- Entête du fichier Changelog.md
+
+### Modifié (Changed)
+- Rotation des fichiers de logs par bouton dans 05_logs.py.  
+Le fichier aaaaa.log et renommé en aaaaa.log.datetime.now.
+- Formatage du fichier Changelog
+- Modification de la présantation des actions en cours et de la prochaine action pour améliorer la lisibilité
+- Modification de l'affichage des circonstances de l'éclipse
+
+### Corrigé (Fixed)
+- Correction du double affichage de l'historique récent
+
+### Supprimé (Removed)
+- Renommage des log en log.old.
+
+
 ## 2026/05/03
 - Modification de la mise en page du moniteur
 - Récupération et affichage des circonstances locales de l'éclipse, des status de batterie et de filtre
@@ -25,32 +52,32 @@
 - Ajout du chargement de la librairie Filter.controler
 - Amélioration de la gestion du journal des check 
 
-## 18/04/2026
+## 2026/04/18
 - Création du Verification.py pour contrôler la config du boitier avant de commencer
 - Ajout de la partie vérification manuelle
 - ajout du bouton pour synchroniser l'horloge du boitier et du PC
 - ajout d'un journal des checks
 
-## 14/04/2026
+## 2026/04/14
 - Modification du setfilter pour forcer le cycle de configuration des positions Open et Closed
 - Ajout de la fonction de vérification du setting
 - Cycle de réglage contraint, obligation de valider le set 1 avant le 2
 
-## 12/04/2026
+## 2026/04/12
 - Création du lanceur MHE_Launcher.sh
 - Adaptation au passage de filter_controler en package
 
-## 11/04/2026
+## 2026/04/11
 - Création du SetFilter.py
 - Corrections diverses de Horaires.py
 - Finalisation du SetFilter.py
 - Centralisation des logs
 
-## 08/04/2026
+## 2026/04/08
 - Ajout de la gestion des fichiers existants
 - gestion de la rotation des logs
 - Création d'un fichier header
 
-## 06/04/2026
+## 2026/04/06
 - Création des programmes
 - Premier commit

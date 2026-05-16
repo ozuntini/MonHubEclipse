@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import streamlit as st
 import os
 import shutil
@@ -52,10 +54,10 @@ if os.path.exists(read_log_file):
     # --- ACTIONS ---
     if st.button("🔁 Rotation des logs"):
         # On renomme et on décale les fichiers de log actuel pour créer une archive
-        if os.path.exists(read_log_file):
-            if os.path.exists(f"{read_log_file}.old"):
-                shutil.copy(f"{read_log_file}.old", f"{read_log_file}.old2")
-            shutil.copy(read_log_file, f"{read_log_file}.old")
+        if read_log_file and os.path.exists(read_log_file):
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            rotated_name = f"{read_log_file}.{timestamp}"
+            os.rename(read_log_file, rotated_name)
         with open(read_log_file, "w") as f:
             f.write("") # On vide le fichier de log actuel
         st.success("Rotation des logs effectuée. Les anciens logs sont sauvegardés.")

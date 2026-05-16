@@ -130,11 +130,11 @@ def _render_last_action(entry: dict) -> None:
             pass
 
     with st.container(border=True):
-        st.subheader(f"{icon} Dernière action réalisée")
+        st.subheader(f"{icon} Action en cours")
         col1, col2 = st.columns(2)
         with col1:
             st.write(f"**Timestamp :** {timestamp}")
-            st.write(f"**Séquence n° :** {entry.get('seq', '—')}")
+            st.write(f"**Séquence n° :** {current.get('index', '—') + 1}")
             st.write(f"**Événement :** `{event}`")
         with col2:
             st.write(f"**Description :** {current.get('description', '—')}")
@@ -275,13 +275,6 @@ def _time_line(circonstances: dict) -> None:
             next_delay = parsed[key] - now
             break
     
-    # Build display string
-    info_str = ""
-    for key in circumstance_keys:
-        if parsed[key]:
-            info_str += f"{key}={circonstances.get(key, '—')}, "
-        else:
-            info_str += f"{key}=—, "
     
     if active_key and next_delay:
         hours, remainder = divmod(int(next_delay.total_seconds()), 3600)
@@ -292,13 +285,13 @@ def _time_line(circonstances: dict) -> None:
             if minutes <= 0:
                 delay_str = f"{seconds:02d} sec"
                 icon = "⚠️"
-                st.warning(f"**{delay_str}** avant le {circumstance_keys[active_key]}\n\n{info_str}", icon=icon)
+                st.warning(f"**{delay_str}** avant le {circumstance_keys[active_key]}", icon=icon)
                 return
         else:
             delay_str = f"{hours:02d}h {minutes:02d} min {seconds:02d} sec"
-        st.info(f"**{delay_str}** avant le {circumstance_keys[active_key]}\n\n{info_str}", icon=icon)
+        st.info(f"**{delay_str}** avant le {circumstance_keys[active_key]}", icon=icon)
     else:
-        st.warning(f"Toutes les circonstances sont dépassées ou indéfinies\n\n{info_str}", icon="⚠️")
+        st.warning(f"Toutes les circonstances sont dépassées ou indéfinies", icon="⚠️")
 
 
 
@@ -342,11 +335,24 @@ def main() -> None:
     # --- Header ---
     st.title("🌑 Eclipse Photography — Monitoring en temps réel")
     
-    # -- - Time Line + digital clock ---
+    # --- Circumstances ---
+    entries = st.session_state.entries
+    circonstances = _reading_circumstance(entries)
+    if circonstances:
+        st.subheader(
+            f"C1 {circonstances.get('C1', '—')} - "
+            f"C2 {circonstances.get('C2', '—')} - "
+            f"Max {circonstances.get('Max', '—')} - "
+            f"C3 {circonstances.get('C3', '—')} - "
+            f"C4 {circonstances.get('C4', '—')}",
+            text_alignment="center"
+        )
+    
+    st.divider()
+    
+    # --- Time Line + digital clock ---
     time_line_col, clock_col = st.columns([3, 1])
     with time_line_col:
-        entries = st.session_state.entries
-        circonstances = _reading_circumstance(entries)
         _time_line(circonstances)
     with clock_col:
         st.markdown(
@@ -396,7 +402,6 @@ def main() -> None:
         time.sleep(REFRESH_CLOCK_SECONDS)
         st.rerun()
 
-    #circonstances = _reading_circumstance(entries)  # for potential future use (e.g. display current circumstance)
 
     # --- Last action block + Next action block ---
     last_action_col, next_action_col = st.columns(2)
@@ -419,12 +424,13 @@ def main() -> None:
         with filter_status_col:
             _render_filter_status(last_entry)
 
-        # --- History ---
-        _render_history(entries)
-
     with image_col:
         st.image("/home/ozuntini/Eclipse_Project/capture/capture_preview.jpg", caption="capture_preview.jpg")
 
+    st.divider()
+    
+    # --- History ---
+    _render_history(entries)
 
     # --- Status bar ---
     last_read_str = _format_last_read_ts(st.session_state.last_log_read_ts)
