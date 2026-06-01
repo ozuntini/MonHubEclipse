@@ -7,7 +7,7 @@ et ce projet adhère à [Semantic Versioning](https://semver.org/).
 
 ---
 
-## [Version 1.0.1] - 2026-05-16
+## [Version 1.0.1] - 2026-06-01
 ### Ajouté (Added)
 - Documentation sur la création d'un service pour lancer automatiquement le Hub.
 - Installeur du service systemd (install.sh)
