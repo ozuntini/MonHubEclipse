@@ -415,6 +415,7 @@ def main() -> None:
 
     # --- Status block + Image block ---
     status_col, image_col = st.columns([3, 1])
+    # --- Status block ---
     with status_col:
         battery_status_col, filter_status_col = st.columns(2)
         # --- battery_status_col + filter_status_col ---
@@ -423,9 +424,18 @@ def main() -> None:
 
         with filter_status_col:
             _render_filter_status(last_entry)
-
+    # --- Image block ---
     with image_col:
-        st.image("/home/ozuntini/Eclipse_Project/capture/capture_preview.jpg", caption="capture_preview.jpg")
+        # if image file exists, show it; otherwise show message and try to show it anyway (in case it appears between the check and the display)
+        image_path = "/home/ozuntini/Eclipse_Project/capture/capture_preview.jpg"
+        if Path(image_path).exists():
+            st.image(image_path, caption="capture_preview.jpg")
+        else:
+            st.info("Aucune image de prévisualisation disponible.", icon="⚠️")
+            try:
+                st.image(image_path, caption="capture_preview.jpg")
+            except Exception:
+                pass
 
     st.divider()
     
