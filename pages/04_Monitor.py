@@ -187,8 +187,31 @@ def _render_battery_status(entry: dict) -> None:
                 if battery_text not in {"", "—"} and not battery_text.endswith("%"):
                     battery_text = f"{battery_text}%"
                 last_read = _format_health_timestamp(e.get("timestamp"))
-                st.info(
-                    f"🔋 Pourcentage batterie : **{battery_text}**\n\n"
+                # Display battery status with last read time
+                # use st.info if battery status > 20%, st.warning if between 10% and 20%, st.error if < 10%
+                try:
+                    battery_value = float(battery_percentage)
+                    if battery_value >= 20:
+                        st.info(
+                            f"Pourcentage batterie : **{battery_text}**\n\n",
+                            icon="🔋"
+                        )
+                    elif 10 <= battery_value < 20:
+                        st.warning(
+                            f"Pourcentage batterie : **{battery_text}**\n\n",
+                            icon="🪫"
+                        )
+                    else:
+                        st.error(
+                            f"Pourcentage batterie : **{battery_text}**\n\n",
+                            icon="⚠️"
+                        )
+                except (TypeError, ValueError):
+                    st.info(
+                        f"Pourcentage batterie : **{battery_text}**\n\n",
+                        icon="🔋"
+                    )
+                st.caption(
                     f"⏰ Dernière lecture : **{last_read}**"
                 )
                 return
