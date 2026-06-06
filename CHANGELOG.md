@@ -7,6 +7,12 @@ et ce projet adhère à [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [Version 1.0.2] - 2026-06-06
+### Modifié (Changed)
+- Mise à jour de `pages/04_Monitor.py` pour afficher la batterie depuis les événements `CAMERA_HEALTH`:
+  - `🔋 Pourcentage batterie : XX%`
+  - `⏰ Dernière lecture : HH:MM:SS`
+
 ## [Version 1.0.1] - 2026-06-06
 ### Ajouté (Added)
 - Documentation sur la création d'un service pour lancer automatiquement le Hub.

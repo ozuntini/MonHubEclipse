@@ -176,12 +176,21 @@ def _render_battery_status(entry: dict) -> None:
     """Render a block specifically for the last battery status, if any."""
     with st.container(border=True):
         st.subheader("🔋 Dernier statut de batterie")
-        # Find the most recent entry with battery_status in details
+        # Find the most recent CAMERA_HEALTH entry
         for e in reversed(st.session_state.entries):
+            if e.get("event") != "CAMERA_HEALTH":
+                continue
             details = e.get("details") or {}
-            if "battery_status" in details:
-                battery_status = details.get("battery_status", "—")
-                st.info(f"Statut de batterie : **{battery_status}**")
+            if "battery_percentage" in details:
+                battery_percentage = details.get("battery_percentage", "—")
+                battery_text = str(battery_percentage)
+                if battery_text not in {"", "—"} and not battery_text.endswith("%"):
+                    battery_text = f"{battery_text}%"
+                last_read = _format_health_timestamp(e.get("timestamp"))
+                st.info(
+                    f"🔋 Pourcentage batterie : **{battery_text}**\n\n"
+                    f"⏰ Dernière lecture : **{last_read}**"
+                )
                 return
         st.info("Aucun statut de batterie enregistré pour le moment.")
 
@@ -304,6 +313,15 @@ def _format_last_read_ts(ts: float | None) -> str:
     if ts is None:
         return "Jamais"
     return datetime.fromtimestamp(ts).strftime("%H:%M:%S")
+
+def _format_health_timestamp(timestamp: Any) -> str:
+    """Return a readable HH:MM:SS from an ISO timestamp, fallback to raw value."""
+    if not isinstance(timestamp, str) or not timestamp:
+        return "—"
+    try:
+        return datetime.fromisoformat(timestamp.replace("Z", "+00:00")).strftime("%H:%M:%S")
+    except ValueError:
+        return timestamp
 
 def _reading_circumstance(entries: list[dict[str, Any]]) -> dict[str, Any]:
     """Extract event = CIRCUMSTANCE and get information about the current circumstance."""

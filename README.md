@@ -10,6 +10,7 @@ Accueil 😎
 2. Tests et configuration du filtre automatique 🛠️
 3. Vérification de la config du boitier avant lancement 📷
 3. Application de lecture des logs 📜
+   - Affichage du monitoring batterie (`CAMERA_HEALTH`) avec pourcentage et heure de dernière lecture
 
 ## Installation
 
