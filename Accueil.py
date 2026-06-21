@@ -20,7 +20,9 @@ st.info("Le menu à gauche est généré automatiquement à partir du dossier 'p
 st.divider()
 st.subheader("🌑 Solar Eclipse Photography (SEP)")
 
-SEP_PARAMS_PATH = os.path.expandvars("$HOME/Eclipse_Project/sep_params.json")
+SEP_PARAMS_PATH = os.path.expandvars(
+    os.environ.get("SEP_PARAMS_PATH", "$HOME/Eclipse_Project/sep_params.json")
+)
 
 # Lecture du fichier de paramètres
 sep_params = None
@@ -38,6 +40,10 @@ else:
 # Indicateur d'état du processus SEP
 if "sep_pid" not in st.session_state:
     st.session_state["sep_pid"] = None
+
+def _under_home(path: str, home: str) -> bool:
+    """Retourne True si path est sous home (résolu)."""
+    return path.startswith(home + os.sep) or path == home
 
 def _is_sep_running():
     pid = st.session_state.get("sep_pid")
@@ -71,10 +77,7 @@ if not sep_running:
             # Valider que script_file est bien sous $HOME (protection contre les path traversal)
             home_dir = os.path.realpath(os.path.expandvars("$HOME"))
             real_script = os.path.realpath(script_file)
-            if (
-                not os.path.commonpath([real_script, home_dir]) == home_dir
-                or not os.path.isfile(real_script)
-            ):
+            if not _under_home(real_script, home_dir) or not os.path.isfile(real_script):
                 st.error(f"Chemin script_file invalide ou introuvable : {script_file}")
             else:
                 # Déduire le répertoire de travail depuis sep_dir (params) ou le répertoire de sep_params.json
@@ -82,7 +85,7 @@ if not sep_running:
                 sep_dir = os.path.realpath(os.path.expandvars(os.path.expanduser(raw_sep_dir)))
 
                 # Valider que sep_dir est sous $HOME
-                if os.path.commonpath([sep_dir, home_dir]) != home_dir or not os.path.isdir(sep_dir):
+                if not _under_home(sep_dir, home_dir) or not os.path.isdir(sep_dir):
                     st.error(f"Répertoire sep_dir invalide ou introuvable : {sep_dir}")
                 else:
                     main_py = os.path.join(sep_dir, "main.py")
@@ -108,6 +111,7 @@ if not sep_running:
                             create_time = psutil.Process(proc.pid).create_time()
                         except (psutil.NoSuchProcess, psutil.AccessDenied):
                             create_time = None
+                            st.warning("Impossible de récupérer create_time du processus SEP : la vérification d'identité sera désactivée.")
                         st.session_state["sep_pid"] = proc.pid
                         st.session_state["sep_create_time"] = create_time
                         st.success(f"SEP lancé avec le PID {proc.pid}. Logs : {sep_log_path}")
