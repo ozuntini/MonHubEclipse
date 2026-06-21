@@ -44,7 +44,11 @@ def _is_sep_running():
     if pid is None:
         return False
     try:
-        return psutil.pid_exists(pid) and psutil.Process(pid).is_running()
+        proc = psutil.Process(pid)
+        expected_ct = st.session_state.get("sep_create_time")
+        if expected_ct is not None and proc.create_time() != expected_ct:
+            return False
+        return proc.is_running()
     except (psutil.NoSuchProcess, psutil.AccessDenied):
         return False
 
@@ -63,19 +67,36 @@ if not sep_running:
         else:
             # Résoudre les chemins et construire la commande
             script_file = os.path.expandvars(sep_params.get("script_file", ""))
-            cmd = ["python3", "main.py", script_file]
 
-            if sep_params.get("test_mode") is True:
-                cmd.append("--test-mode")
+            # Valider que script_file est un chemin absolu sous $HOME et qu'il existe
+            home_dir = os.path.expandvars("$HOME")
+            if not script_file.startswith(home_dir) or not os.path.isfile(script_file):
+                st.error(f"Chemin script_file invalide ou introuvable : {script_file}")
+            else:
+                # Déduire le répertoire de travail depuis sep_dir (params) ou le répertoire de sep_params.json
+                sep_dir = os.path.expandvars(
+                    sep_params.get("sep_dir", os.path.dirname(SEP_PARAMS_PATH))
+                )
+                main_py = os.path.join(sep_dir, "main.py")
+                cmd = ["python3", main_py, script_file]
 
-            log_level = sep_params.get("log_level")
-            if log_level:
-                cmd.extend(["--log-level", str(log_level)])
+                if sep_params.get("test_mode") is True:
+                    cmd.append("--test-mode")
 
-            try:
-                proc = subprocess.Popen(cmd)
-                st.session_state["sep_pid"] = proc.pid
-                st.success(f"SEP lancé avec le PID {proc.pid}.")
-                st.rerun()
-            except Exception as e:
-                st.error(f"Erreur au lancement de SEP : {e}")
+                log_level = sep_params.get("log_level")
+                if log_level:
+                    cmd.extend(["--log-level", str(log_level)])
+
+                try:
+                    proc = subprocess.Popen(
+                        cmd,
+                        cwd=sep_dir,
+                        stdout=subprocess.DEVNULL,
+                        stderr=subprocess.DEVNULL,
+                    )
+                    st.session_state["sep_pid"] = proc.pid
+                    st.session_state["sep_create_time"] = psutil.Process(proc.pid).create_time()
+                    st.success(f"SEP lancé avec le PID {proc.pid}.")
+                    st.rerun()
+                except Exception as e:
+                    st.error(f"Erreur au lancement de SEP : {e}")
