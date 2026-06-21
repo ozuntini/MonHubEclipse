@@ -8,3 +8,6 @@ plotly==6.6.0
 
 # Filter Control
 git+https://github.com/ozuntini/Filter_Control.git
+
+# Process management (SEP status check)
+psutil>=5.9.0
