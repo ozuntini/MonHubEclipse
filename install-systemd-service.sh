@@ -4,6 +4,9 @@
 
 set -e  # Exit on any error
 
+# locate the script directory
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 echo "=== Monhubeclipse systemd Installation ==="
 
 # Update system
@@ -17,7 +20,7 @@ sudo apt install -y nginx
 # Create systemd service file
 echo -e "\nCreating systemd service file...\n"
 SERVICE_FILE="/etc/systemd/system/monhubeclipse.service"
-sudo bash -c "cat ./utils/monhubeclipse.service > $SERVICE_FILE"
+sudo bash -c "cat $SCRIPT_DIR/utils/monhubeclipse.service > $SERVICE_FILE"
 
 # Reload systemd and enable service
 echo -e "\nReloading systemd and enabling service...\n"
@@ -29,9 +32,9 @@ sudo systemctl restart monhubeclipse.service
 echo -e "\nSetting up Nginx reverse proxy...\n"
 # Use the hostname of the Raspberry Pi for the server_name in Nginx configuration
 HNAME=`hostname`.local
-sudo sed -i "s/server_name .*/server_name $HNAME;/" ./utils/monhubeclipse.nginx
+sudo sed -i "s/server_name .*/server_name $HNAME;/" $SCRIPT_DIR/utils/monhubeclipse.nginx
 NGINX_CONFIG="/etc/nginx/sites-available/monhubeclipse"
-sudo bash -c "cat ./utils/monhubeclipse.nginx > $NGINX_CONFIG"
+sudo bash -c "cat $SCRIPT_DIR/utils/monhubeclipse.nginx > $NGINX_CONFIG"
 sudo ln -s $NGINX_CONFIG /etc/nginx/sites-enabled/
 sudo rm -f /etc/nginx/sites-enabled/default
 sudo nginx -t

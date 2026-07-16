@@ -7,6 +7,20 @@ et ce projet adhère à [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [Version 1.1.0] - 2026-07-16
+### Ajouté (Added)
+- Ajout de la gestion des logs dans Accueil.py
+
+### Modifié (Changed)
+- Modification de install-systemd-service.sh et monhubeclipse.service pour la gestion de la nouvelle arborescence 
+
+### Corrigé (Fixed)
+- Accueil.py corrigé pour la gestion des répértoires log et journal
+- Accueil.py corrigé pour le lancement du main en environnement virtualisé
+
+### Supprimé (Removed)
+
+
 ## [Version 1.0.2] - 2026-06-06
 ### Modifié (Changed)
 - Mise à jour de `pages/04_Monitor.py` pour afficher la batterie depuis les événements `CAMERA_HEALTH`:

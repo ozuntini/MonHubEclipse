@@ -7,7 +7,7 @@ Wants=network-online.target
 Type=simple
 User=ozuntini
 Group=ozuntini
-WorkingDirectory=/home/ozuntini/Eclipse_Project/MonHubEclipse/
+WorkingDirectory=/home/ozuntini/MonHubEclipse/
 
 # Streamlit écoute en local seulement (sécurité), Nginx exposera le port 80
 ExecStart=/home/ozuntini/eclipse_env/bin/streamlit run Accueil.py --server.address 127.0.0.1 --server.port 8501
