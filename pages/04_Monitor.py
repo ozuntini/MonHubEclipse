@@ -28,11 +28,36 @@ REFRESH_CLOCK_SECONDS = 1
 REFRESH_JOURNAL_SECONDS = 10
 
 # Configuration du nom du fichier journal et création du dossier de logs s'il n'existe pas
-DOSSIERS_LOG = os.path.expanduser("~/Eclipse_Project/logs")
-if not os.path.exists(DOSSIERS_LOG):
-    os.makedirs(DOSSIERS_LOG)
+# Récupérer le chemin du dossier de log dans le fichier sep_params.json
+SEP_PARAMS_PATH = os.path.expanduser("~/Eclipse_Project/sep_params.json")
 
-journal_file = os.path.join(DOSSIERS_LOG, "eclipse_journal.json")
+if os.path.exists(SEP_PARAMS_PATH):
+    with open(SEP_PARAMS_PATH, "r", encoding="utf-8") as f:
+        sep_params = json.load(f)
+    LOG_DIR = sep_params.get("log_dir", os.path.expanduser("~/Eclipse_Project/logs"))
+else:
+    LOG_DIR = os.path.expanduser("~/Eclipse_Project/logs")
+
+# Récupérer le chemin du dossier journal dans le fichier sep_params.json
+if os.path.exists(SEP_PARAMS_PATH):
+    with open(SEP_PARAMS_PATH, "r", encoding="utf-8") as f:
+        sep_params = json.load(f)
+    JOURNAL_DIR = sep_params.get("journal_dir", os.path.expanduser("~/Eclipse_Project/logs"))
+else:
+    JOURNAL_DIR = os.path.expanduser("~/Eclipse_Project/logs")
+
+if not os.path.exists(LOG_DIR):
+    os.makedirs(LOG_DIR)
+if not os.path.exists(JOURNAL_DIR):
+    os.makedirs(JOURNAL_DIR)
+
+# Récupérer le chemin du fichier journal dans le fichier sep_params.json
+if os.path.exists(SEP_PARAMS_PATH):
+    with open(SEP_PARAMS_PATH, "r", encoding="utf-8") as f:
+        sep_params = json.load(f)
+    journal_file = sep_params.get("journal_file", os.path.join(JOURNAL_DIR, "eclipse_journal.json"))
+else:
+    journal_file = os.path.join(JOURNAL_DIR, "eclipse_journal.json")
 
 # ---------------------------------------------------------------------------
 # Argument parsing (Streamlit strips everything before "--")
@@ -52,7 +77,6 @@ def _get_journal_path() -> str:
         )
         return journal_file
     return args[idx + 1]
-
 
 # ---------------------------------------------------------------------------
 # Journal reading helpers

@@ -10,6 +10,7 @@ et ce projet adhère à [Semantic Versioning](https://semver.org/).
 ## [Version 1.1.0] - 2026-07-16
 ### Ajouté (Added)
 - Ajout de la gestion des logs dans Accueil.py
+- Ajout du chargement du chemin et fichier journal dans le sep_params.json pour le Monitor.py
 
 ### Modifié (Changed)
 - Modification de install-systemd-service.sh et monhubeclipse.service pour la gestion de la nouvelle arborescence 
