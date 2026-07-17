@@ -14,6 +14,7 @@ import json
 import sys
 import time
 import os
+import logging
 from datetime import datetime
 from pathlib import Path
 from typing import Any
@@ -55,9 +56,31 @@ if not os.path.exists(JOURNAL_DIR):
 if os.path.exists(SEP_PARAMS_PATH):
     with open(SEP_PARAMS_PATH, "r", encoding="utf-8") as f:
         sep_params = json.load(f)
-    journal_file = sep_params.get("journal_file", os.path.join(JOURNAL_DIR, "eclipse_journal.json"))
+    JOURNAL_FILE = sep_params.get("journal_file", "eclipse_journal.json")
+    JOURNAL_FILE = os.path.join(JOURNAL_DIR, JOURNAL_FILE)
 else:
-    journal_file = os.path.join(JOURNAL_DIR, "eclipse_journal.json")
+    JOURNAL_FILE = os.path.join(JOURNAL_DIR, "eclipse_journal.json")
+
+# Configuration du logger
+
+logger = logging.getLogger("monitor")
+if not logger.handlers:
+    handler = logging.FileHandler(os.path.join(LOG_DIR, "monitor.log"))
+    handler.setFormatter(logging.Formatter(
+        '%(asctime)s - %(levelname)s - %(filename)s:%(lineno)d - %(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S'
+    ))
+    logger.addHandler(handler)
+    logger.setLevel(logging.INFO)
+
+logger.debug(
+    "Configuration monitor initialisée (sep_params=%s, log_dir=%s, journal_dir=%s, journal_file=%s)",
+    SEP_PARAMS_PATH,
+    LOG_DIR,
+    JOURNAL_DIR,
+    JOURNAL_FILE,
+)
+
 
 # ---------------------------------------------------------------------------
 # Argument parsing (Streamlit strips everything before "--")
@@ -69,14 +92,18 @@ def _get_journal_path() -> str:
     try:
         idx = args.index("--journal")
     except ValueError:
-        return journal_file
+        logger.debug("Argument --journal absent, journal par defaut utilise: %s", JOURNAL_FILE)
+        return JOURNAL_FILE
     if idx + 1 >= len(args):
         print(
             "[monitor_dashboard] Warning: --journal requires a value; using default.",
             file=sys.stderr,
         )
-        return journal_file
-    return args[idx + 1]
+        logger.warning("Argument --journal sans valeur, journal par defaut utilise: %s", JOURNAL_FILE)
+        return JOURNAL_FILE
+    resolved = args[idx + 1]
+    logger.debug("Journal fourni via CLI: %s", resolved)
+    return resolved
 
 # ---------------------------------------------------------------------------
 # Journal reading helpers
@@ -100,16 +127,25 @@ def _parse_journal(path: str) -> list[dict]:
     entries: list[dict] = []
     p = Path(path)
     if not p.exists():
+        logger.warning("Fichier journal introuvable: %s", path)
         return entries
-    with p.open("r", encoding="utf-8") as fh:
-        for line in fh:
-            line = line.strip()
-            if not line:
-                continue
-            try:
-                entries.append(json.loads(line))
-            except json.JSONDecodeError as exc:
-                print(f"[monitor_dashboard] Malformed JSON line ignored: {exc}", file=sys.stderr)
+    try:
+        with p.open("r", encoding="utf-8") as fh:
+            malformed_count = 0
+            for line in fh:
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    entries.append(json.loads(line))
+                except json.JSONDecodeError as exc:
+                    malformed_count += 1
+                    logger.warning("Ligne JSON invalide ignoree dans %s: %s", path, exc)
+        if malformed_count > 0:
+            logger.warning("Lecture journal terminee avec %s ligne(s) invalide(s): %s", malformed_count, path)
+        logger.info("Journal lu: %s entree(s) valides depuis %s", len(entries), path)
+    except OSError:
+        logger.exception("Erreur d'E/S pendant la lecture du journal: %s", path)
     return entries
 
 
@@ -382,6 +418,7 @@ def _reading_circumstance(entries: list[dict[str, Any]]) -> dict[str, Any]:
 # ---------------------------------------------------------------------------
 
 def main() -> None:
+    # -- if argument --journal is provided, use it; otherwise use journal_file from sep_params.json
     journal_path = _get_journal_path()
 
     st.set_page_config(
@@ -396,6 +433,11 @@ def main() -> None:
         st.session_state.entries = []
         st.session_state.last_entry = None
         st.session_state.total_lines = 0
+        st.session_state.monitor_log_bootstrap_done = False
+
+    if not st.session_state.monitor_log_bootstrap_done:
+        logger.info("Dashboard monitor initialise. Journal surveille: %s", journal_path)
+        st.session_state.monitor_log_bootstrap_done = True
 
     # --- Header ---
     st.title("🌑 Eclipse Photography — Monitoring en temps réel")
@@ -438,6 +480,11 @@ def main() -> None:
         st.session_state.entries = entries
         st.session_state.total_lines = len(entries)
         st.session_state.last_entry = _last_action_entry(entries)
+        logger.info(
+            "Mise a jour journal: total=%s, derniere_action=%s",
+            st.session_state.total_lines,
+            (st.session_state.last_entry or {}).get("event", "none"),
+        )
 
     entries = st.session_state.entries
     last_entry = st.session_state.last_entry
@@ -447,6 +494,9 @@ def main() -> None:
     # Test-mode banner (shown if any entry has test_mode == True)
     if any((e.get("details") or {}).get("test_mode") for e in entries):
         st.warning("🧪 **Mode test activé** — aucune photo réelle ne sera prise")
+        if not st.session_state.get("monitor_test_mode_logged", False):
+            logger.warning("Mode test detecte dans le journal.")
+            st.session_state.monitor_test_mode_logged = True
 
     # --- No data state ---
     if not entries or last_entry is None:

@@ -9,11 +9,13 @@ et ce projet adhère à [Semantic Versioning](https://semver.org/).
 
 ## [Version 1.1.0] - 2026-07-16
 ### Ajouté (Added)
-- Ajout de la gestion des logs dans Accueil.py
+- Ajout de la gestion des logs dans Accueil.py et Monitor.py
 - Ajout du chargement du chemin et fichier journal dans le sep_params.json pour le Monitor.py
 
 ### Modifié (Changed)
-- Modification de install-systemd-service.sh et monhubeclipse.service pour la gestion de la nouvelle arborescence 
+- Modification de install-systemd-service.sh et monhubeclipse.service pour la gestion de la nouvelle arborescence
+- Dans Monitor.py le log de la config monitor est passé de INFO à DEBUG, le log CLI "Journal fourni via CLI" est aussi passé de INFO à DEBUG.
+  Résultat: plus de spam dans le fichier de log au niveau INFO chaque seconde, tout en gardant ces traces disponibles si tu passes le logger en DEBUG un jour.
 
 ### Corrigé (Fixed)
 - Accueil.py corrigé pour la gestion des répértoires log et journal
