@@ -20,11 +20,18 @@ if not logger.handlers:
     logger.addHandler(handler)
     logger.setLevel(logging.INFO)
 
+# Récupération du hostname et de l'adresse IP
+hostname = os.uname().nodename
+ipadress = (os.popen("hostname -I").read().strip()).split()[0]  # Récupère la première adresse IP
+
 # Configuration de la page
-st.set_page_config(page_title="Mon Hub Eclipse", layout="centered", page_icon="😎")
+st.set_page_config(page_title=f"Mon Hub Eclipse {hostname}", layout="centered", page_icon="😎")
 logger.info("Page d'accueil chargée.")
 
 st.title("😎 Hub Eclipse 😎")
+st.subheader("Bienvenue sur mon interface d'observation des éclipses")
+# affichage du hostname du serveur
+st.info(f"**Serveur :** {hostname}  **IP :** {ipadress}", icon="🖥️")
 st.write("""
 Cette interface regroupe tous mes outils Python d'observation des éclipses Solaires ou Lunaires.  
 Utilisez la **barre latérale à gauche** pour naviguer entre les différentes applications.
@@ -58,6 +65,16 @@ if os.path.isfile(SEP_PARAMS_PATH):
 else:
     st.error(f"Fichier introuvable : {SEP_PARAMS_PATH}")
     logger.error(f"Fichier introuvable : {SEP_PARAMS_PATH}")
+
+# Récupération du script_file depuis sep_params.json
+if sep_params is not None:
+    script_file = sep_params.get("script_file")
+    if script_file:
+        st.info(f"**Script SEP :** {script_file}", icon="📜")
+        logger.info(f"Script SEP défini dans les paramètres : {script_file}")
+    else:
+        st.warning("Paramètre 'script_file' absent dans sep_params.json.")
+        logger.warning("Paramètre 'script_file' absent dans sep_params.json.")
 
 # Indicateur d'état du processus SEP
 if "sep_pid" not in st.session_state:

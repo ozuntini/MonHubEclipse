@@ -7,10 +7,12 @@ et ce projet adhère à [Semantic Versioning](https://semver.org/).
 
 ---
 
-## [Version 1.1.0] - 2026-07-16
+## [Version 1.1.0] - 2026-07-20
 ### Ajouté (Added)
 - Ajout de la gestion des logs dans Accueil.py et Monitor.py
 - Ajout du chargement du chemin et fichier journal dans le sep_params.json pour le Monitor.py
+- Affichage d'information sur le serveur streamlit, hostname et IP dans Accueil.py
+- Affichage du nom du script de séquencement dans Accueil.py
 
 ### Modifié (Changed)
 - Modification de install-systemd-service.sh et monhubeclipse.service pour la gestion de la nouvelle arborescence
@@ -20,6 +22,7 @@ et ce projet adhère à [Semantic Versioning](https://semver.org/).
 ### Corrigé (Fixed)
 - Accueil.py corrigé pour la gestion des répértoires log et journal
 - Accueil.py corrigé pour le lancement du main en environnement virtualisé
+- Correction du server_name de référence dans monhubeclipse.nginx pour le rendre annonyme
 
 ### Supprimé (Removed)
 
